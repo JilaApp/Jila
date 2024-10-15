@@ -16,7 +16,7 @@ export function Collapsible({
   return (
     <ThemedView>
       <TouchableOpacity
-        className="flex-row items-center gap-1.5"
+        className="flex-row items-center gap-2"
         onPress={() => setIsOpen((value) => !value)}
         activeOpacity={0.8}
       >
