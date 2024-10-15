@@ -47,9 +47,9 @@ export async function DELETE(request: Request) {
   try {
     // Get the video title from the request URL
     const { searchParams } = new URL(request.url);
-    const title = searchParams.get("title");
+    const id = searchParams.get("id");
 
-    if (!title) {
+    if (!id) {
       return NextResponse.json(
         { error: "Video title is required" },
         { status: 400 }
@@ -58,7 +58,7 @@ export async function DELETE(request: Request) {
 
     // Find the video by title
     const video = await prisma.videos.findFirst({
-      where: { title },
+      where: { id },
     });
 
     if (!video) {
