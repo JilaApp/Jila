@@ -1,5 +1,5 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { StyleSheet, Image, Platform } from "react-native";
+import { Image, Platform } from "react-native";
 
 import { Collapsible } from "@/src/components/Collapsible";
 import { ExternalLink } from "@/src/components/ExternalLink";
@@ -12,10 +12,14 @@ export default function TabTwoScreen() {
     <ParallaxScrollView
       headerBackgroundColor={{ light: "#D0D0D0", dark: "#353636" }}
       headerImage={
-        <Ionicons size={310} name="code-slash" style={styles.headerImage} />
+        <Ionicons
+          size={310}
+          name="code-slash"
+          className="text-gray-500 absolute bottom-[-90px] left-[-35px]"
+        />
       }
     >
-      <ThemedView style={styles.titleContainer}>
+      <ThemedView className="flex-row gap-2">
         <ThemedText type="title">Explore</ThemedText>
       </ThemedView>
       <ThemedText>
@@ -53,7 +57,7 @@ export default function TabTwoScreen() {
         </ThemedText>
         <Image
           source={require("@/assets/images/react-logo.png")}
-          style={{ alignSelf: "center" }}
+          className="self-center"
         />
         <ExternalLink href="https://reactnative.dev/docs/images">
           <ThemedText type="link">Learn more</ThemedText>
@@ -63,9 +67,7 @@ export default function TabTwoScreen() {
         <ThemedText>
           Open <ThemedText type="defaultSemiBold">app/_layout.tsx</ThemedText>{" "}
           to see how to load{" "}
-          <ThemedText style={{ fontFamily: "SpaceMono" }}>
-            custom fonts such as this one.
-          </ThemedText>
+          <ThemedText>custom fonts such as this one.</ThemedText>
         </ThemedText>
         <ExternalLink href="https://docs.expo.dev/versions/latest/sdk/font">
           <ThemedText type="link">Learn more</ThemedText>
@@ -109,16 +111,3 @@ export default function TabTwoScreen() {
     </ParallaxScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  headerImage: {
-    color: "#808080",
-    bottom: -90,
-    left: -35,
-    position: "absolute",
-  },
-  titleContainer: {
-    flexDirection: "row",
-    gap: 8,
-  },
-});
