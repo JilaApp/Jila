@@ -56,7 +56,7 @@ This is a [Nextjs](https://nextjs.org/) project created with [`Vercel Postgres +
 
 ### Learn more
 
-To learn more about developing with Expo, look at the following resources:
+To learn more about developing with Next.js or Prisma, look at the following resources:
 
 - [Nextjs documentation](https://nextjs.org/docs): Learn Next.js fundamentals
 - [Prisma documentation](https://www.prisma.io/docs): Learn Prisma fundamentals
