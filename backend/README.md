@@ -1,3 +1,5 @@
+This is an [Nextjs](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+
 # Getting Started
 
 - Navigate into `backend` folder
