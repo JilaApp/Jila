@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { VideoArgs } from "@/types";
+import { VideoType } from "@prisma/client";
 
 export async function GET(request: Request) {
   const videos = await prisma.videos.findMany();
@@ -10,7 +12,7 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     // parse the JSON body from the request
-    const body = await request.json();
+    const body: VideoArgs = await request.json();
     const { title, show, type, length, link } = body;
 
     // Validate the required fields
@@ -21,11 +23,15 @@ export async function POST(request: Request) {
       );
     }
 
+    if (!Object.values(type).includes(type as VideoType)) {
+      return NextResponse.json({ error: "Invalid type" }, { status: 400 });
+    }
+
     // create a new video in prisma
     const newVideo = await prisma.videos.create({
       data: {
         title,
-        show: show !== undefined ? show : true, // Default to true if not provided
+        show: show ?? true, // Default to true if not provided
         type,
         length,
         link,
@@ -36,10 +42,7 @@ export async function POST(request: Request) {
     return NextResponse.json(newVideo, { status: 201 });
   } catch (error) {
     console.error(error);
-    return NextResponse.json(
-      { error: "Failed to add video" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to add video" }, { status: 500 });
   }
 }
 
@@ -51,7 +54,7 @@ export async function DELETE(request: Request) {
 
     if (!id) {
       return NextResponse.json(
-        { error: "Video title is required" },
+        { error: "Video id is required" },
         { status: 400 }
       );
     }
@@ -62,10 +65,7 @@ export async function DELETE(request: Request) {
     });
 
     if (!video) {
-      return NextResponse.json(
-        { error: "Video not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Video not found" }, { status: 404 });
     }
 
     // Delete the video by ID
