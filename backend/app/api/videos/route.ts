@@ -7,10 +7,14 @@ const videoSchema = z.object({
   title: z.string().min(1, "Title is required"),
   show: z.boolean().optional(),
   type: z.nativeEnum(VideoType),
-  length: z.string().refine((val) => !isNaN(Number(val)) && Number(val) > 0, {
-    message: "Length must be a positive number",
-  }),
-  link: z.string().url("Invalid link format"),
+  length: z
+    .string()
+    .regex(/^[0-5]?[0-9]:[0-5][0-9]$/, "Length must be in MM:SS format"),
+  link: z
+    .string()
+    .min(11, "Link (YouTube video ID) must be exactly 11 characters long")
+    .max(11, "Link (YouTube video ID) must be exactly 11 characters long")
+    .regex(/^[a-zA-Z0-9_-]{11}$/, "Invalid YouTube video ID format"),
 });
 
 export async function GET(request: Request) {
