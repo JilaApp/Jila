@@ -23,7 +23,7 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!Object.values(type).includes(type as VideoType)) {
+    if (!Object.values(VideoType).includes(type as VideoType)) {
       return NextResponse.json({ error: "Invalid type" }, { status: 400 });
     }
 
