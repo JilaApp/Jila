@@ -1,7 +1,17 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { VideoArgs } from "@/types";
 import { VideoType } from "@prisma/client";
+import { z } from "zod";
+
+const videoSchema = z.object({
+  title: z.string().min(1, "Title is required"),
+  show: z.boolean().optional(),
+  type: z.nativeEnum(VideoType),
+  length: z.string().refine((val) => !isNaN(Number(val)) && Number(val) > 0, {
+    message: "Length must be a positive number",
+  }),
+  link: z.string().url("Invalid link format"),
+});
 
 export async function GET(request: Request) {
   const videos = await prisma.videos.findMany();
@@ -11,37 +21,22 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
-    // parse the JSON body from the request
-    const body: VideoArgs = await request.json();
-    const { title, show, type, length, link } = body;
+    const body = await request.json();
 
-    // Validate the required fields
-    if (!title || !type || !length || !link) {
-      return NextResponse.json(
-        { error: "Missing required fields" },
-        { status: 400 }
-      );
-    }
+    const parsedData = videoSchema.parse(body);
 
-    if (!Object.values(VideoType).includes(type as VideoType)) {
-      return NextResponse.json({ error: "Invalid type" }, { status: 400 });
-    }
+    const { title, show, type, length, link } = parsedData;
 
-    // create a new video in prisma
     const newVideo = await prisma.videos.create({
-      data: {
-        title,
-        show: show ?? true, // Default to true if not provided
-        type,
-        length,
-        link,
-      },
+      data: { title, show: show ?? true, type, length, link },
     });
 
-    // Return the newly created video record as a response
     return NextResponse.json(newVideo, { status: 201 });
-  } catch (error) {
-    console.error(error);
+  } catch (error: any) {
+    if (error instanceof z.ZodError) {
+      return NextResponse.json({ errors: error.errors }, { status: 400 });
+    }
+
     return NextResponse.json({ error: "Failed to add video" }, { status: 500 });
   }
 }
