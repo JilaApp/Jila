@@ -1,5 +1,21 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { VideoType } from "@prisma/client";
+import { z } from "zod";
+
+const videoSchema = z.object({
+  title: z.string().min(1, "Title is required"),
+  show: z.boolean().optional(),
+  type: z.nativeEnum(VideoType),
+  length: z
+    .string()
+    .regex(/^[0-5]?[0-9]:[0-5][0-9]$/, "Length must be in MM:SS format"),
+  link: z
+    .string()
+    .min(11, "Link (YouTube video ID) must be exactly 11 characters long")
+    .max(11, "Link (YouTube video ID) must be exactly 11 characters long")
+    .regex(/^[a-zA-Z0-9_-]{11}$/, "Invalid YouTube video ID format"),
+});
 
 export async function GET(request: Request) {
   const videos = await prisma.videos.findMany();
@@ -9,37 +25,23 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
-    // parse the JSON body from the request
     const body = await request.json();
-    const { title, show, type, length, link } = body;
 
-    // Validate the required fields
-    if (!title || !type || !length || !link) {
-      return NextResponse.json(
-        { error: "Missing required fields" },
-        { status: 400 }
-      );
-    }
+    const parsedData = videoSchema.parse(body);
 
-    // create a new video in prisma
+    const { title, show, type, length, link } = parsedData;
+
     const newVideo = await prisma.videos.create({
-      data: {
-        title,
-        show: show !== undefined ? show : true, // Default to true if not provided
-        type,
-        length,
-        link,
-      },
+      data: { title, show: show ?? true, type, length, link },
     });
 
-    // Return the newly created video record as a response
     return NextResponse.json(newVideo, { status: 201 });
-  } catch (error) {
-    console.error(error);
-    return NextResponse.json(
-      { error: "Failed to add video" },
-      { status: 500 }
-    );
+  } catch (error: any) {
+    if (error instanceof z.ZodError) {
+      return NextResponse.json({ errors: error.errors }, { status: 400 });
+    }
+
+    return NextResponse.json({ error: "Failed to add video" }, { status: 500 });
   }
 }
 
@@ -51,7 +53,7 @@ export async function DELETE(request: Request) {
 
     if (!id) {
       return NextResponse.json(
-        { error: "Video title is required" },
+        { error: "Video id is required" },
         { status: 400 }
       );
     }
@@ -62,10 +64,7 @@ export async function DELETE(request: Request) {
     });
 
     if (!video) {
-      return NextResponse.json(
-        { error: "Video not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Video not found" }, { status: 404 });
     }
 
     // Delete the video by ID
