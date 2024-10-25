@@ -1,6 +1,5 @@
 import { Tabs } from "expo-router";
-import React from "react";
-
+import { Text } from "react-native";
 import { Colors } from "@/src/constants/Colors";
 import { useColorScheme } from "@/src/hooks/useColorScheme";
 
@@ -11,19 +10,15 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-        headerShown: false,
+        headerShown: true,
+        headerTitleAlign: "center",
+        headerTitle: () => <Text>Header</Text>,
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
           title: "Home",
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: "Explore",
         }}
       />
     </Tabs>
