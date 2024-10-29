@@ -1,11 +1,11 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import { Suspense } from 'react'
-import Table from '@/components/table'
-import TablePlaceholder from '@/components/table-placeholder'
-import ExpandingArrow from '@/components/expanding-arrow'
+import Image from "next/image";
+import Link from "next/link";
+import { Suspense } from "react";
+import Table from "@/components/table";
+import TablePlaceholder from "@/components/table-placeholder";
+import ExpandingArrow from "@/components/expanding-arrow";
 
-export const dynamic = 'force-dynamic'
+export const dynamic = "force-dynamic";
 
 export default function Home() {
   return (
@@ -14,7 +14,7 @@ export default function Home() {
         href="https://vercel.com/templates/next.js/postgres-prisma"
         className="group mt-20 sm:mt-0 rounded-full flex space-x-1 bg-white/30 shadow-sm ring-1 ring-gray-900/5 text-gray-600 text-sm font-medium px-10 py-2 hover:shadow-lg active:shadow-sm transition-all"
       >
-        <p>Deploy your own to Vercel</p>
+        <p>Deploy your own to Vercell</p>
         <ExpandingArrow />
       </Link>
       <h1 className="pt-4 pb-8 bg-gradient-to-br from-black via-[#171717] to-[#575757] bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-7xl">
@@ -29,15 +29,15 @@ export default function Home() {
           className="font-medium underline underline-offset-4 hover:text-black transition-colors"
         >
           Vercel Postgres
-        </Link>{' '}
-        demo with{' '}
+        </Link>{" "}
+        demo with{" "}
         <Link
           href="https://prisma.io"
           className="font-medium underline underline-offset-4 hover:text-black transition-colors"
         >
           Prisma
-        </Link>{' '}
-        as the ORM. <br /> Built with{' '}
+        </Link>{" "}
+        as the ORM. <br /> Built with{" "}
         <Link
           href="https://nextjs.org/docs"
           className="font-medium underline underline-offset-4 hover:text-black transition-colors"
@@ -93,5 +93,5 @@ export default function Home() {
         </Link>
       </div>
     </main>
-  )
+  );
 }
