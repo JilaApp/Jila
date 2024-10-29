@@ -1,17 +1,22 @@
 import prisma from "../lib/prisma";
 
 async function main() {
-  const response = await Promise.all([
-    prisma.videos.create({
-      data: {
-        title: "new dining video",
-        type: "DINING",
-        length: "2:34",
-        link: "cen0rBKLuYE",
-      },
-    }),
-  ]);
-  console.log(response);
+  if (
+    process.env.NODE_ENV !== "production" &&
+    process.env.NODE_ENV !== "test"
+  ) {
+    const response = await Promise.all([
+      prisma.videos.create({
+        data: {
+          title: "new dining video",
+          type: "DINING",
+          length: "2:34",
+          link: "cen0rBKLuYE",
+        },
+      }),
+    ]);
+    console.log(response);
+  }
 }
 main()
   .then(async () => {
