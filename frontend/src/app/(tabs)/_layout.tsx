@@ -1,7 +1,7 @@
 import { Tabs } from "expo-router";
-import { Text } from "react-native";
 import { useColorScheme } from "@/src/hooks/useColorScheme";
-import { HeaderTitle } from "@/src/components/header";
+import { Image } from "react-native";
+import home from "@/assets/images/home.png";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -14,7 +14,7 @@ export default function TabLayout() {
         headerTitleAlign: "center",
         headerStyle: {
           backgroundColor: "#7E0601",
-          height: 115
+          height: 120,
         },
       }}
     >
@@ -23,10 +23,7 @@ export default function TabLayout() {
         options={{
           title: "Home",
           headerTitle: () => (
-            <HeaderTitle 
-              headerTitle="Home Page" 
-              
-            />
+            <Image source={home} style={{ width: 50, height: 50 }} />
           ),
         }}
       />
