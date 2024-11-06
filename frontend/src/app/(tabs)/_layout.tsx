@@ -1,74 +1,112 @@
 import { Tabs } from "expo-router";
-import { Text, Image } from "react-native";
-import home from "@/src/images/house.png";
-import { Colors } from "@/src/constants/Colors";
-import { useColorScheme } from "@/src/hooks/useColorScheme";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Text, Image, View } from "react-native";
+import home from "@/src/images/home.png";
+import help from "@/src/images/help.png";
+import resources from "@/src/images/resources.png";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-  const Tab = createBottomTabNavigator();
-
   return (
-    <Tab.Navigator
+    <Tabs
       screenOptions={{
         headerShown: true,
         headerTitleAlign: "center",
-        headerTitle: () => <Text>Header</Text>,
         tabBarStyle: {
           backgroundColor: "#7E0601",
         },
-        tabBarActiveTintColor: "#7E0601",
         headerStyle: {
           backgroundColor: "#7E0601",
-          height: 120,
+          height: 100,
         },
       }}
     >
       <Tabs.Screen
+        name="help/index"
+        options={{
+          tabBarShowLabel: false,
+          tabBarIcon: ({ focused }) => {
+            return (
+              <View
+                className={`${
+                  focused &&
+                  "w-10 h-10 rounded-full bg-white justify-center items-center"
+                }`}
+              >
+                <Image
+                  className="h-7 w-7"
+                  source={help}
+                  style={{ tintColor: focused ? "#7E0601" : "black" }}
+                />
+              </View>
+            );
+          },
+          headerTitle: () => (
+            <Image
+              source={help}
+              className="w-12 h-12"
+              style={{ tintColor: "white" }}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="index"
         options={{
           tabBarShowLabel: false,
-          tabBarIcon: (tabInfo) => {
+          tabBarIcon: ({ focused }) => {
             return (
-              <Image
-                style={{ height: 40, width: 40 }}
-                source={require("@/src/images/house.png")}
-              />
+              <View
+                className={`w-10 h-10 rounded-full justify-center items-center ${
+                  focused ? "bg-white" : "bg-transparent"
+                }`}
+              >
+                <Image
+                  className="h-8 w-8"
+                  source={home}
+                  style={{
+                    tintColor: focused ? "#7E0601" : "black",
+                  }}
+                />
+              </View>
             );
           },
-          title: "Home",
-          headerTitle: () => <Image source={home} className="w-12 h-12" />,
+          headerTitle: () => (
+            <Image
+              source={home}
+              className="w-14 h-14"
+              style={{ tintColor: "white" }}
+            />
+          ),
         }}
       />
       <Tabs.Screen
-        name="Resources"
+        name="resources/index"
         options={{
           tabBarShowLabel: false,
-          tabBarIcon: (tabInfo) => {
+          tabBarIcon: ({ focused }) => {
             return (
-              <Image
-                style={{ height: 40, width: 40 }}
-                source={require("@/src/images/resources.png")}
-              />
+              <View
+                className={`${
+                  focused &&
+                  "w-10 h-10 rounded-full bg-white justify-center items-center"
+                }`}
+              >
+                <Image
+                  className="h-7 w-7"
+                  source={resources}
+                  style={{ tintColor: focused ? "#7E0601" : "black" }}
+                />
+              </View>
             );
           },
+          headerTitle: () => (
+            <Image
+              source={resources}
+              className="w-12 h-12"
+              style={{ tintColor: "white" }}
+            />
+          ),
         }}
       />
-      <Tabs.Screen
-        name="Help"
-        options={{
-          tabBarShowLabel: false,
-          tabBarIcon: (tabInfo) => {
-            return (
-              <Image
-                style={{ height: 40, width: 40 }}
-                source={require("@/src/images/help.png")}
-              />
-            );
-          },
-        }}
-      />
-    </Tab.Navigator>
+    </Tabs>
   );
 }
