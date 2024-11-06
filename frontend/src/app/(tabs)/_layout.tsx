@@ -12,6 +12,8 @@ export default function TabLayout() {
         headerTitleAlign: "center",
         tabBarStyle: {
           backgroundColor: "#7E0601",
+          paddingTop: 32,
+          paddingBottom: 32,
         },
         headerStyle: {
           backgroundColor: "#7E0601",
@@ -26,9 +28,8 @@ export default function TabLayout() {
           tabBarIcon: ({ focused }) => {
             return (
               <View
-                className={`${
-                  focused &&
-                  "w-10 h-10 rounded-full bg-white justify-center items-center"
+                className={`w-12 h-12 rounded-full justify-center items-center ${
+                  focused ? "bg-white" : "bg-transparent"
                 }`}
               >
                 <Image
@@ -55,7 +56,7 @@ export default function TabLayout() {
           tabBarIcon: ({ focused }) => {
             return (
               <View
-                className={`w-10 h-10 rounded-full justify-center items-center ${
+                className={`w-12 h-12 rounded-full justify-center items-center mt-0.5 ${
                   focused ? "bg-white" : "bg-transparent"
                 }`}
               >
@@ -85,9 +86,8 @@ export default function TabLayout() {
           tabBarIcon: ({ focused }) => {
             return (
               <View
-                className={`${
-                  focused &&
-                  "w-10 h-10 rounded-full bg-white justify-center items-center"
+                className={`w-12 h-12 rounded-full justify-center items-center ${
+                  focused ? "bg-white" : "bg-transparent"
                 }`}
               >
                 <Image
