@@ -25,7 +25,6 @@ export default function TabLayout() {
           headerTitle: () => (
             <Image source={home} className="w-12 h-12" />
           ),
-          
         }}
       />
     </Tabs>
