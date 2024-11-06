@@ -6,21 +6,17 @@ import { styled } from "nativewind";
 const IconButton = styled(TouchableOpacity);
 
 export default function HomeScreen() {
-  // Define topics directly in this file
+  // Define topics with a unique color for each
   const topics = [
-    { name: "Legal", icon: "balance-scale", enabled: false },
-    { name: "Transportation", icon: "bus", enabled: false },
-    { name: "Medical", icon: "heartbeat", enabled: false },
-    { name: "Professional Development", icon: "suitcase", enabled: false },
-    { name: "General", icon: "bell", enabled: false },
+    { name: "Legal", icon: "balance-scale", color: "#F3722C", enabled: true },
+    { name: "Transport", icon: "bus", color: "#577590", enabled: true },
+    { name: "Medical", icon: "heartbeat", color: "#F9C74F", enabled: true },
+    { name: "Professional Development", icon: "suitcase", color: "#90BE6D", enabled: true },
+    { name: "General", icon: "bell", color: "#682388", enabled: true },
   ];
 
   return (
     <View className="flex-1 bg-white p-4">
-
-      <View className="flex-row justify-center items-center h-24">
-        <Text className="text-black font-normal text-xl">Empty space for Most Used</Text>
-      </View>
 
       <Text className="text-2xl font-bold text-red-900 mb-4">All Topics</Text>
       
@@ -28,23 +24,22 @@ export default function HomeScreen() {
         {topics.map((topic, index) => (
           <View key={index} className="items-center m-2 w-24">
             <IconButton
-              className={`w-24 h-24 items-center justify-center rounded-lg ${
-                topic.enabled ? "bg-blue-200" : "bg-gray-300"
-              }`}
+              className="w-24 h-24 items-center justify-center rounded-lg"
+              style={{
+                backgroundColor: topic.enabled ? topic.color : "#D3D3D3", // Default gray if disabled
+              }}
               onPress={() => {
-                if (topic.enabled) {
-                  alert(`Navigating to ${topic.name}`);
-                }
+
               }}
               disabled={!topic.enabled}
             >
               <FontAwesome
                 name={topic.icon as any}
-                size={32}
+                size={50}
                 color={topic.enabled ? "white" : "gray"}
               />
             </IconButton>
-            <Text className="text-center mt-2 text-gray-700">
+            <Text className="text-center font-bold mt-2 text-gray-700">
               {topic.name}
             </Text>
           </View>
