@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { styled } from "nativewind";
-import soundIcon from "@/assets/images/soundicon.png"; // Adjust path if needed
+import soundIcon from "@/assets/images/soundicon.png";
 
 const IconButton = styled(TouchableOpacity);
 
@@ -35,11 +35,10 @@ export default function HomeScreen() {
             <IconButton
               className="w-24 h-24 items-center justify-center rounded-lg"
               style={{
-                backgroundColor: topic.enabled ? topic.color : "#D3D3D3", // Default gray if disabled
+                backgroundColor: topic.enabled ? topic.color : "#D3D3D3", 
               }}
               onPress={() => {
                 if (topic.enabled) {
-                  // Handle button press
                 }
               }}
               disabled={!topic.enabled}
