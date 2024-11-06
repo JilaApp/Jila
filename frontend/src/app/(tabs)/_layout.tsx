@@ -23,7 +23,7 @@ export default function TabLayout() {
         options={{
           title: "Home",
           headerTitle: () => (
-            <Image source={home} style={{ width: 50, height: 50 }} />
+            <Image source={home} className="w-12 h-12" />
           ),
         }}
       />
