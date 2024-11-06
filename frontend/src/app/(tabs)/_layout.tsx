@@ -1,8 +1,8 @@
 import { Tabs } from "expo-router";
-import { Text, Image, View } from "react-native";
-import home from "@/src/images/home.png";
-import help from "@/src/images/help.png";
-import resources from "@/src/images/resources.png";
+import { Image, View } from "react-native";
+import helpIcon from "@/src/images/help.png";
+import resourcesIcon from "@/src/images/resources.png";
+import homeIcon from "@/src/images/home.png";
 
 export default function TabLayout() {
   return (
@@ -33,8 +33,8 @@ export default function TabLayout() {
                 }`}
               >
                 <Image
-                  className="h-7 w-7"
-                  source={help}
+                  className="h-8 w-8"
+                  source={helpIcon}
                   style={{ tintColor: focused ? "#7E0601" : "black" }}
                 />
               </View>
@@ -42,7 +42,7 @@ export default function TabLayout() {
           },
           headerTitle: () => (
             <Image
-              source={help}
+              source={helpIcon}
               className="w-12 h-12"
               style={{ tintColor: "white" }}
             />
@@ -62,7 +62,7 @@ export default function TabLayout() {
               >
                 <Image
                   className="h-8 w-8"
-                  source={home}
+                  source={homeIcon}
                   style={{
                     tintColor: focused ? "#7E0601" : "black",
                   }}
@@ -70,13 +70,7 @@ export default function TabLayout() {
               </View>
             );
           },
-          headerTitle: () => (
-            <Image
-              source={home}
-              className="w-14 h-14"
-              style={{ tintColor: "white" }}
-            />
-          ),
+          headerTitle: () => <Image source={homeIcon} className="w-14 h-14" />,
         }}
       />
       <Tabs.Screen
@@ -92,7 +86,7 @@ export default function TabLayout() {
               >
                 <Image
                   className="h-7 w-7"
-                  source={resources}
+                  source={resourcesIcon}
                   style={{ tintColor: focused ? "#7E0601" : "black" }}
                 />
               </View>
@@ -100,7 +94,7 @@ export default function TabLayout() {
           },
           headerTitle: () => (
             <Image
-              source={resources}
+              source={resourcesIcon}
               className="w-12 h-12"
               style={{ tintColor: "white" }}
             />
