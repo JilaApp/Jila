@@ -17,7 +17,7 @@ export default function TabLayout() {
         },
         headerStyle: {
           backgroundColor: "#7E0601",
-          height: 100,
+          height: 120,
         },
       }}
     >
