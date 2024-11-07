@@ -20,7 +20,7 @@ export default function HomeScreen() {
   };
 
   return (
-    <View className="flex-1 bg-white p-4">
+    <View className="flex-1 bg-gray-100 p-4">
       
       <View className="flex-row items-center justify-center mb-4">
         <TouchableOpacity onPress={handleSoundIconPress} className="mr-2">
