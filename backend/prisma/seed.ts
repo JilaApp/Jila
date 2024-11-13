@@ -4,8 +4,8 @@ async function main() {
   const response = await Promise.all([
     prisma.videos.create({
       data: {
-        title: "new dining video",
-        type: "DINING",
+        title: "new medical video",
+        type: "MEDICAL",
         length: "2:34",
         link: "cen0rBKLuYE",
       },
