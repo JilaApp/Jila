@@ -1,31 +1,85 @@
-import prisma from "@/lib/prisma";
-import RefreshButton from "./refresh-button";
+// components/table.tsx
+'use client';
 
-export default async function Table() {
-  const startTime = Date.now();
-  const videos = await prisma.videos.findMany();
-  const duration = Date.now() - startTime;
+import { useEffect, useState } from 'react';
 
+interface TableProps {
+  isSignedIn: boolean;
+}
+
+export default function Table({ isSignedIn }: TableProps) {
+  const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchVideos() {
+      try {
+        const response = await fetch('/api/videos');
+        if (!response.ok) {
+          throw new Error('Failed to fetch videos');
+        }
+        const data = await response.json();
+        setVideos(data);
+      } catch (error) {
+        console.error('Error fetching videos:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchVideos();
+  }, []);
+
+
+  const handleDelete = async (id: string) => {
+    try {
+      const response = await fetch(`/api/videos?id=${id}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error('Failed to delete video');
+      }
+      setVideos(videos.filter(video => video.id !== id));
+    } catch (error) {
+      console.error('Error deleting video:', error);
+    }
+  };
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
   return (
-    <div className="bg-white/30 p-12 shadow-xl ring-1 ring-gray-900/5 rounded-lg backdrop-blur-lg max-w-xl mx-auto w-full">
-      <div className="flex justify-between items-center mb-4">
-        <RefreshButton />
-      </div>
-      <div className="divide-y divide-gray-900/5">
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Type</th>
+          <th>Length</th>
+          <th>Link</th>
+          {isSignedIn && <th>Actions</th>} {/* Show actions column if signed in */}
+        </tr>
+      </thead>
+      <tbody>
         {videos.map((video) => (
-          <div
-            key={video.id}
-            className="flex items-center justify-between py-3"
-          >
-            <div className="flex items-center space-x-4">
-              <div className="space-y-1">
-                <p className="font-medium leading-none">{video.title}</p>
-                <p className="text-sm text-gray-500">{video.type}</p>
-              </div>
-            </div>
-          </div>
+          <tr key={video.id}>
+            <td>{video.title}</td>
+            <td>{video.type}</td>
+            <td>{video.length}</td>
+            <td>
+              <a href={`https://youtube.com/watch?v=${video.link}`} target="_blank" rel="noopener noreferrer">
+                {video.link}
+              </a>
+            </td>
+            {isSignedIn && (
+              <td>
+                <button onClick={() => handleDelete(video.id)} className="bg-red-500 text-white px-2 py-1 rounded">
+                  Delete
+                </button>
+              </td>
+            )}
+          </tr>
         ))}
-      </div>
-    </div>
+      </tbody>
+    </table>
   );
 }

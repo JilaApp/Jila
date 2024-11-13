@@ -1,17 +1,15 @@
+// app/page.tsx
 'use client';
 
-import Image from 'next/image';
-import Link from 'next/link';
 import { Suspense } from 'react';
 import { useAuth, SignInButton, SignUpButton, UserButton } from '@clerk/nextjs';
 import Table from '@/components/table';
 import TablePlaceholder from '@/components/table-placeholder';
 
-
-export const dynamic = 'force-dynamic';
-
 export default function Home() {
-  const { isLoaded, isSignedIn } = useAuth(); // Check if user is authenticated
+  const { isLoaded, isSignedIn } = useAuth();
+
+  if (!isLoaded) return <p>Loading...</p>;
 
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-center">
@@ -19,31 +17,23 @@ export default function Home() {
         Jila Admin Portal
       </h1>
 
-      {/* Show Sign-In/Sign-Up Buttons if user is not signed in */}
-      {!isSignedIn && (
+      {!isSignedIn ? (
         <div className="flex space-x-4 mt-6">
           <SignInButton>
-            <button className="bg-blue-500 text-white px-4 py-2 rounded">
-              Sign In
-            </button>
+            <button className="bg-blue-500 text-white px-4 py-2 rounded">Sign In</button>
           </SignInButton>
           <SignUpButton>
-            <button className="bg-green-500 text-white px-4 py-2 rounded">
-              Sign Up
-            </button>
+            <button className="bg-green-500 text-white px-4 py-2 rounded">Sign Up</button>
           </SignUpButton>
         </div>
-      )}
-
-      {/* Show User Button and Table only if user is signed in */}
-      {isSignedIn && (
+      ) : (
         <>
           <UserButton />
           <Suspense fallback={<TablePlaceholder />}>
-            <Table />
+            <Table isSignedIn={isSignedIn} /> {/* Pass isSignedIn as a prop */}
           </Suspense>
         </>
       )}
     </main>
   );
- }
+}

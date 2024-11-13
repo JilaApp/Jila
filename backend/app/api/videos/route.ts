@@ -17,12 +17,15 @@ const videoSchema = z.object({
     .regex(/^[a-zA-Z0-9_-]{11}$/, "Invalid YouTube video ID format"),
 });
 
-export async function GET(request: Request) {
-  const videos = await prisma.videos.findMany();
-
-  return NextResponse.json(videos);
+export async function GET() {
+  try {
+    const videos = await prisma.videos.findMany();
+    return NextResponse.json(videos);
+  } catch (error) {
+    console.error('Error fetching videos:', error);
+    return NextResponse.json({ error: 'Error fetching videos' }, { status: 500 });
+  }
 }
-
 export async function POST(request: Request) {
   try {
     const body = await request.json();
