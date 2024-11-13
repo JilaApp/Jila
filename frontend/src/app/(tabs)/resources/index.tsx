@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import AntDesign from '@expo/vector-icons/AntDesign';
-import { styled } from "nativewind";
 
 export default function Resources() {
 
