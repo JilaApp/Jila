@@ -1,6 +1,5 @@
-import React from "react";
-import { View, Text, TouchableOpacity, Image } from "react-native";
-import AntDesign from '@expo/vector-icons/AntDesign';
+import { View, Text, TouchableOpacity} from "react-native";
+import {AntDesign} from '@expo/vector-icons';
 
 export default function Resources() {
 
