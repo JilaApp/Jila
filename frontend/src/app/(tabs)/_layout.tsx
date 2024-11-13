@@ -1,8 +1,6 @@
 import { Tabs } from "expo-router";
 import { Image, View } from "react-native";
-import helpIcon from "@/src/images/help.png";
-import resourcesIcon from "@/src/images/resources.png";
-import homeIcon from "@/src/images/home.png";
+import { Entypo, FontAwesome5, Ionicons } from "@expo/vector-icons";
 
 export default function TabLayout() {
   return (
@@ -32,20 +30,16 @@ export default function TabLayout() {
                   focused ? "bg-white" : "bg-transparent"
                 }`}
               >
-                <Image
-                  className="h-8 w-8"
-                  source={helpIcon}
-                  style={{ tintColor: focused ? "#7E0601" : "black" }}
+                <Ionicons
+                  name="help-circle-outline"
+                  size={40}
+                  color={focused ? "#7E0601" : "black"}
                 />
               </View>
             );
           },
           headerTitle: () => (
-            <Image
-              source={helpIcon}
-              className="w-12 h-12"
-              style={{ tintColor: "white" }}
-            />
+            <Ionicons name="help-circle-outline" size={64} color={"white"} />
           ),
         }}
       />
@@ -60,17 +54,15 @@ export default function TabLayout() {
                   focused ? "bg-white" : "bg-transparent"
                 }`}
               >
-                <Image
-                  className="h-8 w-8"
-                  source={homeIcon}
-                  style={{
-                    tintColor: focused ? "#7E0601" : "black",
-                  }}
+                <Entypo
+                  name="home"
+                  size={36}
+                  color={focused ? "#7E0601" : "black"}
                 />
               </View>
             );
           },
-          headerTitle: () => <Image source={homeIcon} className="w-14 h-14" />,
+          headerTitle: () => <Entypo name="home" size={56} color={"white"} />,
         }}
       />
       <Tabs.Screen
@@ -84,20 +76,16 @@ export default function TabLayout() {
                   focused ? "bg-white" : "bg-transparent"
                 }`}
               >
-                <Image
-                  className="h-7 w-7"
-                  source={resourcesIcon}
-                  style={{ tintColor: focused ? "#7E0601" : "black" }}
+                <FontAwesome5
+                  name="book-open"
+                  size={27}
+                  color={focused ? "#7E0601" : "black"}
                 />
               </View>
             );
           },
           headerTitle: () => (
-            <Image
-              source={resourcesIcon}
-              className="w-12 h-12"
-              style={{ tintColor: "white" }}
-            />
+            <FontAwesome5 name="book-open" size={48} color={"white"} />
           ),
         }}
       />
