@@ -21,9 +21,14 @@ model videos {
 }
 
 enum VideoType {
-  EDUCATIONAL
-  DINING
+  PROFESSIONAL_DEVELOPMENT
   MEDICAL
   TRANSPORTATION
   LEGAL
+  OTHER
+}
+
+model admins {
+  uid String @id @default(cuid())
+  email String 
 }
