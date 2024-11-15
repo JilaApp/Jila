@@ -1,5 +1,5 @@
 import { Tabs } from "expo-router";
-import { Image, View } from "react-native";
+import { View } from "react-native";
 import { Entypo, FontAwesome5, Ionicons } from "@expo/vector-icons";
 
 export default function TabLayout() {

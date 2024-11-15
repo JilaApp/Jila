@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { FontAwesome, AntDesign, Entypo } from "@expo/vector-icons";
-import { Stack, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { Category, iconMap, iconType } from "@/types";
 
 export default function HomeScreen() {

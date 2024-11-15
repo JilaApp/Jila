@@ -1,6 +1,5 @@
 import { Entypo } from "@expo/vector-icons";
-import { Stack, Tabs } from "expo-router";
-import { View } from "react-native";
+import { Tabs } from "expo-router";
 
 export default function HomeLayout() {
   return (

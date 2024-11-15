@@ -1,7 +1,7 @@
 import { categories, Category, iconMap, iconType } from "@/types";
-import { Entypo, FontAwesome } from "@expo/vector-icons";
+import { Entypo, FontAwesome, FontAwesome6 } from "@expo/vector-icons";
 import { Tabs, useLocalSearchParams, useRouter } from "expo-router";
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, TouchableOpacity } from "react-native";
 
 export default function DetailsScreen() {
   const { category } = useLocalSearchParams();
@@ -24,7 +24,7 @@ export default function DetailsScreen() {
   const type = iconMap[categoryName].type;
 
   return (
-    <View className="flex justify-center items-center">
+    <View className="flex justify-center items-center bg-[#E4E4E4]">
       <Tabs.Screen
         options={{
           headerTitle: () => (
@@ -46,7 +46,15 @@ export default function DetailsScreen() {
           ),
         }}
       />
-      <Button title="Return" onPress={() => router.navigate("/(home)")} />
+      <View className="w-full bg-[#A30700] flex items-start">
+        <TouchableOpacity
+          onPress={() => router.navigate("/(home)")}
+          activeOpacity={0.5}
+          className="px-4 py-2"
+        >
+          <FontAwesome6 name="angle-left" size={36} color="white" />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
