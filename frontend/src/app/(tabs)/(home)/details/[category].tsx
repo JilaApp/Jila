@@ -1,29 +1,16 @@
+import { categories, Category, iconMap, iconType } from "@/types";
 import { Entypo, FontAwesome } from "@expo/vector-icons";
 import { Tabs, useLocalSearchParams, useRouter } from "expo-router";
 import { View, Text, Button } from "react-native";
 
-const iconMap = {
-  transport: { name: "bus", type: "FontAwesome" },
-  legal: { name: "balance-scale", type: "FontAwesome" },
-  medical: { name: "heartbeat", type: "FontAwesome" },
-  career: { name: "suitcase", type: "FontAwesome" },
-  other: { name: "dots-three-horizontal", type: "Entypo" },
-};
-
-const categories = [
-  "transport",
-  "legal",
-  "medical",
-  "career",
-  "other",
-] as const;
-type Category = (typeof categories)[number];
-
 export default function DetailsScreen() {
-  const { type } = useLocalSearchParams();
+  const { category } = useLocalSearchParams();
   const router = useRouter();
 
-  if (typeof type !== "string" || !categories.includes(type as Category)) {
+  if (
+    typeof category !== "string" ||
+    !categories.includes(category as Category)
+  ) {
     return (
       <View className="flex justify-center items-center">
         <Text>Not Found</Text>
@@ -32,9 +19,9 @@ export default function DetailsScreen() {
     );
   }
 
-  const category = type as Category;
-  const icon = iconMap[category].name;
-  const iconType = iconMap[category].type;
+  const categoryName = category as Category;
+  const name = iconMap[categoryName].name;
+  const type = iconMap[categoryName].type;
 
   return (
     <View className="flex justify-center items-center">
@@ -42,16 +29,16 @@ export default function DetailsScreen() {
         options={{
           headerTitle: () => (
             <>
-              {iconType === "Entypo" ? (
+              {type === iconType.Entypo ? (
                 <Entypo
-                  name={icon as keyof typeof Entypo.glyphMap}
-                  size={37}
+                  name={name as keyof typeof Entypo.glyphMap}
+                  size={56}
                   color={"white"}
                 />
               ) : (
                 <FontAwesome
-                  name={icon as keyof typeof FontAwesome.glyphMap}
-                  size={37}
+                  name={name as keyof typeof FontAwesome.glyphMap}
+                  size={48}
                   color={"white"}
                 />
               )}

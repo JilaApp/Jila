@@ -63,7 +63,6 @@ export default function TabLayout() {
             );
           },
           headerShown: false,
-          // headerTitle: () => <Entypo name="home" size={56} color={"white"} />,
         }}
       />
       <Tabs.Screen

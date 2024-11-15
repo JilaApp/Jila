@@ -1,36 +1,23 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { FontAwesome, AntDesign, Entypo } from "@expo/vector-icons";
 import { Stack, useRouter } from "expo-router";
+import { Category, iconMap, iconType } from "@/types";
 
 export default function HomeScreen() {
   const router = useRouter();
 
-  const topics = [
-    {
-      name: "Transport",
-      icon: "bus",
-      color: "#577590",
+  const topics = Object.keys(iconMap).map((key) => {
+    const category = key as Category;
+    const { name: iconName, type, label, color } = iconMap[category];
+    return {
+      name: label,
+      icon: iconName,
+      color,
       enabled: true,
-      onPress: () => {
-        router.replace("./details/transport");
-      },
-    },
-    { name: "Legal", icon: "balance-scale", color: "#9F2020", enabled: true },
-    { name: "Medical", icon: "heartbeat", color: "#F9C74F", enabled: true },
-    {
-      name: "Career",
-      icon: "suitcase",
-      color: "#90BE6D",
-      enabled: true,
-    },
-    {
-      name: "Other",
-      icon: "dots-three-horizontal",
-      color: "#9C9C9C",
-      enabled: true,
-      type: "Entypo",
-    },
-  ];
+      type,
+      onPress: () => router.replace(`./details/${category}`),
+    };
+  });
 
   return (
     <View className="flex-1 bg-[#E4E4E4] p-4">
@@ -52,7 +39,7 @@ export default function HomeScreen() {
               onPress={topic.onPress}
               disabled={!topic.enabled}
             >
-              {topic.type === "Entypo" ? (
+              {topic.type === iconType.Entypo ? (
                 <Entypo
                   name={topic.icon as keyof typeof Entypo.glyphMap}
                   size={37}
