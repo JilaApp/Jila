@@ -1,9 +1,20 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { FontAwesome, AntDesign, Entypo } from "@expo/vector-icons";
+import { Stack, useRouter } from "expo-router";
 
 export default function HomeScreen() {
+  const router = useRouter();
+
   const topics = [
-    { name: "Transport", icon: "bus", color: "#577590", enabled: true },
+    {
+      name: "Transport",
+      icon: "bus",
+      color: "#577590",
+      enabled: true,
+      onPress: () => {
+        router.replace("./details/transport");
+      },
+    },
     { name: "Legal", icon: "balance-scale", color: "#9F2020", enabled: true },
     { name: "Medical", icon: "heartbeat", color: "#F9C74F", enabled: true },
     {
@@ -38,6 +49,7 @@ export default function HomeScreen() {
               style={{
                 backgroundColor: topic.enabled ? topic.color : "#D3D3D3",
               }}
+              onPress={topic.onPress}
               disabled={!topic.enabled}
             >
               {topic.type === "Entypo" ? (

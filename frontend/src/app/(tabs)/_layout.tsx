@@ -44,7 +44,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="index"
+        name="(home)"
         options={{
           tabBarShowLabel: false,
           tabBarIcon: ({ focused }) => {
@@ -62,7 +62,8 @@ export default function TabLayout() {
               </View>
             );
           },
-          headerTitle: () => <Entypo name="home" size={56} color={"white"} />,
+          headerShown: false,
+          // headerTitle: () => <Entypo name="home" size={56} color={"white"} />,
         }}
       />
       <Tabs.Screen
