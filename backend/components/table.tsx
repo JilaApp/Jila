@@ -3,12 +3,20 @@
 
 import { useEffect, useState } from 'react';
 
+interface Video {
+  id: string;
+  title: string;
+  type: string;
+  length: string;
+  link: string;
+}
+
 interface TableProps {
   isSignedIn: boolean;
 }
 
 export default function Table({ isSignedIn }: TableProps) {
-  const [videos, setVideos] = useState([]);
+  const [videos, setVideos] = useState<Video[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
