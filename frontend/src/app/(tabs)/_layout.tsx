@@ -33,7 +33,7 @@ export default function TabLayout() {
                 <Ionicons
                   name="help-circle-outline"
                   size={40}
-                  color={focused ? "#7E0601" : "black"}
+                  color={focused ? "#7E0601" : "white"}
                 />
               </View>
             );
@@ -57,7 +57,7 @@ export default function TabLayout() {
                 <Entypo
                   name="home"
                   size={36}
-                  color={focused ? "#7E0601" : "black"}
+                  color={focused ? "#7E0601" : "white"}
                 />
               </View>
             );
@@ -79,7 +79,7 @@ export default function TabLayout() {
                 <FontAwesome5
                   name="book-open"
                   size={27}
-                  color={focused ? "#7E0601" : "black"}
+                  color={focused ? "#7E0601" : "white"}
                 />
               </View>
             );
