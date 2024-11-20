@@ -1,8 +1,8 @@
 export const categories = [
-  "transport",
+  "transportation",
   "legal",
   "medical",
-  "career",
+  "professional_development",
   "other",
 ] as const;
 
@@ -22,7 +22,7 @@ export const iconMap: Record<
     color: string;
   }
 > = {
-  transport: {
+  transportation: {
     name: "bus",
     type: iconType.FontAwesome,
     label: "Transport",
@@ -40,7 +40,7 @@ export const iconMap: Record<
     label: "Medical",
     color: "#F9C74F",
   },
-  career: {
+  professional_development: {
     name: "suitcase",
     type: iconType.FontAwesome,
     label: "Career",
@@ -53,3 +53,12 @@ export const iconMap: Record<
     color: "#9C9C9C",
   },
 };
+
+export interface Video {
+  id: string;
+  title: string;
+  show: boolean;
+  type: Category;
+  length: string;
+  link: string;
+}
