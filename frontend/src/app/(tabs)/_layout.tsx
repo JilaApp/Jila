@@ -1,5 +1,5 @@
 import { Tabs } from "expo-router";
-import { Image, View } from "react-native";
+import { View } from "react-native";
 import { Entypo, FontAwesome5, Ionicons } from "@expo/vector-icons";
 
 export default function TabLayout() {
@@ -33,7 +33,7 @@ export default function TabLayout() {
                 <Ionicons
                   name="help-circle-outline"
                   size={40}
-                  color={focused ? "#7E0601" : "black"}
+                  color={focused ? "#7E0601" : "white"}
                 />
               </View>
             );
@@ -44,7 +44,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="index"
+        name="(home)"
         options={{
           tabBarShowLabel: false,
           tabBarIcon: ({ focused }) => {
@@ -57,12 +57,12 @@ export default function TabLayout() {
                 <Entypo
                   name="home"
                   size={36}
-                  color={focused ? "#7E0601" : "black"}
+                  color={focused ? "#7E0601" : "white"}
                 />
               </View>
             );
           },
-          headerTitle: () => <Entypo name="home" size={56} color={"white"} />,
+          headerShown: false,
         }}
       />
       <Tabs.Screen
@@ -79,7 +79,7 @@ export default function TabLayout() {
                 <FontAwesome5
                   name="book-open"
                   size={27}
-                  color={focused ? "#7E0601" : "black"}
+                  color={focused ? "#7E0601" : "white"}
                 />
               </View>
             );
