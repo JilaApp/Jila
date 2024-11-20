@@ -1,5 +1,3 @@
-import { FontAwesome, Entypo } from "@expo/vector-icons";
-
 export const categories = [
   "transport",
   "legal",

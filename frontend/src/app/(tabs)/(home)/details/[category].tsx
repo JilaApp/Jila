@@ -12,7 +12,7 @@ export default function DetailsScreen() {
     !categories.includes(category as Category)
   ) {
     return (
-      <View className="flex justify-center items-center">
+      <View className="flex justify-center items-center h-full">
         <Text>Not Found</Text>
         <Button title="Return" onPress={() => router.navigate("/(home)")} />
       </View>
