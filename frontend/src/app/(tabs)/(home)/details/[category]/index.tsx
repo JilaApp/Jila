@@ -104,6 +104,15 @@ export default function DetailsScreen() {
           </View>
         </View>
       ))}
+      <TouchableOpacity
+        onPress={() => {
+          router.push(`/details/${category}/videos`);
+        }}
+      >
+        <View className="h-12 bg-blue-400 flex items-center justify-center">
+          <Text className="text-white">Watch Video</Text>
+        </View>
+      </TouchableOpacity>
     </View>
   );
 }

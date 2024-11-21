@@ -22,7 +22,7 @@ export default function HomeLayout() {
           headerTitle: () => <Entypo name="home" size={56} color={"white"} />,
         }}
       />
-      <Tabs.Screen name="details/[category]" />
+      <Tabs.Screen name="details" />
     </Tabs>
   );
 }
