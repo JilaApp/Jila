@@ -35,16 +35,24 @@ export default function DetailsScreen() {
   };
 
   const renderContent = (message: string) => (
-    <View className="flex justify-center items-center h-full">
+    <View className="h-full">
       <Tabs.Screen
         options={{
           headerTitle: renderHeaderIcon,
         }}
       />
-      <Text>{message}</Text>
-      {!isLoading && (
-        <Button title="Return" onPress={() => router.navigate("/(home)")} />
-      )}
+      <View className="w-full bg-[#A30700] flex items-start">
+        <TouchableOpacity
+          onPress={() => router.navigate("/(home)")}
+          activeOpacity={0.5}
+          className="px-4 py-2"
+        >
+          <FontAwesome6 name="angle-left" size={36} color="white" />
+        </TouchableOpacity>
+      </View>
+      <View className="flex justify-center items-center h-full">
+        <Text>{message}</Text>
+      </View>
     </View>
   );
 
