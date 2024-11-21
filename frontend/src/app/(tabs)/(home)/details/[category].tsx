@@ -76,7 +76,7 @@ export default function DetailsScreen() {
   }
 
   return (
-    <View className="flex justify-center items-center bg-[#E4E4E4] h-full">
+    <View className="bg-[#E4E4E4] h-full">
       <Tabs.Screen
         options={{
           headerTitle: renderHeaderIcon,
