@@ -1,0 +1,60 @@
+import { categories, Category, iconMap, iconType } from "@/types";
+import { Entypo, FontAwesome, FontAwesome6 } from "@expo/vector-icons";
+import { Tabs, useLocalSearchParams, useRouter } from "expo-router";
+import { View, Text, Button, TouchableOpacity } from "react-native";
+
+export default function DetailsScreen() {
+  const { category } = useLocalSearchParams();
+  const router = useRouter();
+
+  if (
+    typeof category !== "string" ||
+    !categories.includes(category as Category)
+  ) {
+    return (
+      <View className="flex justify-center items-center h-full">
+        <Text>Not Found</Text>
+        <Button title="Return" onPress={() => router.navigate("/(home)")} />
+      </View>
+    );
+  }
+
+  const categoryName = category as Category;
+  const name = iconMap[categoryName].name;
+  const type = iconMap[categoryName].type;
+
+  return (
+    <View className="flex justify-center items-center bg-[#E4E4E4]">
+      <Tabs.Screen
+        options={{
+          headerTitle: () => (
+            <>
+              {type === iconType.Entypo ? (
+                <Entypo
+                  name={name as keyof typeof Entypo.glyphMap}
+                  size={56}
+                  color={"white"}
+                />
+              ) : (
+                <FontAwesome
+                  name={name as keyof typeof FontAwesome.glyphMap}
+                  size={48}
+                  color={"white"}
+                />
+              )}
+            </>
+          ),
+        }}
+      />
+      <View className="w-full bg-[#A30700] flex items-start">
+        <TouchableOpacity
+          onPress={() => router.navigate("/(home)")}
+          activeOpacity={0.5}
+          className="px-4 py-2"
+        >
+          <FontAwesome6 name="angle-left" size={36} color="white" />
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+}

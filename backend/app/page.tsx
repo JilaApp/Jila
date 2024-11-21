@@ -1,10 +1,13 @@
-// app/page.tsx
 'use client';
-
+import Image from "next/image";
+import Link from "next/link";
 import { Suspense, useState } from 'react';
+import Table from "@/components/table";
+import TablePlaceholder from "@/components/table-placeholder";
+import ExpandingArrow from "@/components/expanding-arrow";
 import { useAuth, SignInButton, SignUpButton, UserButton } from '@clerk/nextjs';
-import Table from '@/components/table';
-import TablePlaceholder from '@/components/table-placeholder';
+
+export const dynamic = "force-dynamic";
 
 export default function Home() {
   const { isLoaded, isSignedIn } = useAuth();
@@ -49,6 +52,32 @@ export default function Home() {
       <h1 className="pt-4 pb-8 bg-gradient-to-br from-black via-[#171717] to-[#575757] bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-7xl">
         Jila Admin Portal
       </h1>
+      <Suspense fallback={<TablePlaceholder />}>
+        <Table />
+      </Suspense>
+      <p className="font-light text-gray-600 w-full max-w-lg text-center mt-6">
+        <Link
+          href="https://vercel.com/postgres"
+          className="font-medium underline underline-offset-4 hover:text-black transition-colors"
+        >
+          Vercel Postgres
+        </Link>{" "}
+        demo with{" "}
+        <Link
+          href="https://prisma.io"
+          className="font-medium underline underline-offset-4 hover:text-black transition-colors"
+        >
+          Prisma
+        </Link>{" "}
+        as the ORM. <br /> Built with{" "}
+        <Link
+          href="https://nextjs.org/docs"
+          className="font-medium underline underline-offset-4 hover:text-black transition-colors"
+        >
+          Next.js App Router
+        </Link>
+        .
+      </p>
 
       {!isSignedIn ? (
         <div className="flex space-x-4 mt-6">
