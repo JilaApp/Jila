@@ -2,7 +2,7 @@ import { useVideos } from "@/src/hooks/useVideos";
 import { categories, Category, iconMap, iconType, Video } from "@/types";
 import { Entypo, FontAwesome, FontAwesome6 } from "@expo/vector-icons";
 import { Tabs, useLocalSearchParams, useRouter } from "expo-router";
-import { View, Text, Button, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 
 export default function DetailsScreen() {
   const { category } = useLocalSearchParams();
