@@ -84,9 +84,9 @@ export default function DetailsScreen() {
         </TouchableOpacity>
       </View>
       {videos.map((video: Video) => (
-        <>
+        <View key={video.id}>
           <View className="h-4" />
-          <View key={video.id} className="flex items-center justify-center">
+          <View className="flex items-center justify-center">
             <Text>ID: {video.id}</Text>
             <Text>Title: {video.title}</Text>
             <Text>Show: {video.show ? "true" : "false"}</Text>
@@ -94,7 +94,7 @@ export default function DetailsScreen() {
             <Text>Length: {video.length} mins</Text>
             <Text>Link: {video.link}</Text>
           </View>
-        </>
+        </View>
       ))}
     </View>
   );
