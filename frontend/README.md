@@ -4,7 +4,9 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 
 1. Navigate into `frontend` folder
 
-2. Install dependencies
+2. Run `cp .env.example .env` to create .env and then set the environment variables
+
+3. Install dependencies
 
    ```bash
    npm install
@@ -16,7 +18,7 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    yarn install
    ```
 
-3. Start the app
+4. Start the app
 
    ```bash
     npx expo start
