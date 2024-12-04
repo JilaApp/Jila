@@ -10,8 +10,8 @@ export default function TabLayout() {
         headerTitleAlign: "center",
         tabBarStyle: {
           backgroundColor: "#7E0601",
-          paddingTop: 32,
-          paddingBottom: 32,
+          height: 90,
+          paddingTop: 20,
         },
         headerStyle: {
           backgroundColor: "#7E0601",
