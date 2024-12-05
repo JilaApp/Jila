@@ -1,18 +1,44 @@
-// app/page.tsx
+
 'use client';
 
-import { Suspense, useState } from 'react';
-import { useAuth, SignInButton, SignUpButton, UserButton } from '@clerk/nextjs';
+import { Suspense, useState, useEffect } from 'react';
+import { useAuth, useUser, SignInButton, SignUpButton, UserButton, SignOutButton } from '@clerk/nextjs';
 import Table from '@/components/table';
 import TablePlaceholder from '@/components/table-placeholder';
 
 export default function Home() {
   const { isLoaded, isSignedIn } = useAuth();
+  const { user } = useUser(); // Access user details
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loadingAuth, setLoadingAuth] = useState(true);
   const [title, setTitle] = useState('');
   const [link, setLink] = useState('');
   const [type, setType] = useState('OTHER');
   const [length, setLength] = useState('');
   const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    if (isSignedIn && user) {
+      const userEmail = user.primaryEmailAddress?.emailAddress;
+
+      if (userEmail) {
+        fetch(`/api/admins/${userEmail}`)
+          .then((res) => res.json())
+          .then((data) => {
+            setIsAuthenticated(data.authenticated);
+            setLoadingAuth(false);
+          })
+          .catch((error) => {
+            console.error('Error checking authentication:', error);
+            setLoadingAuth(false);
+          });
+      } else {
+        setLoadingAuth(false);
+      }
+    } else {
+      setLoadingAuth(false);
+    }
+  }, [isSignedIn, user]);
 
   const handleAddVideo = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,7 +68,7 @@ export default function Home() {
     }
   };
 
-  if (!isLoaded) return <p>Loading...</p>;
+  if (!isLoaded || loadingAuth) return <p>Loading...</p>;
 
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-center">
@@ -59,18 +85,21 @@ export default function Home() {
             <button className="bg-green-500 text-white px-4 py-2 rounded">Sign Up</button>
           </SignUpButton>
         </div>
+      ) : !isAuthenticated ? (
+        <div className="flex flex-col items-center">
+          <p className="text-red-500 text-center mb-4">You are not authorized to access this page.</p>
+          <SignOutButton>
+            <button className="bg-red-500 text-white px-4 py-2 rounded">Sign Out</button>
+          </SignOutButton>
+        </div>
       ) : (
         <>
           <UserButton />
-
-          {/* Centered Table Component */}
           <div className="mt-10 w-full max-w-3xl flex justify-center">
             <Suspense fallback={<TablePlaceholder />}>
               <Table isSignedIn={isSignedIn} />
             </Suspense>
           </div>
-
-          {/* Centered Add New Video Section */}
           <div className="mt-10 w-full max-w-lg flex flex-col items-center">
             <h2 className="text-xl font-semibold mb-4">Add New Video</h2>
             {message && <p className="text-green-500 mb-4">{message}</p>}

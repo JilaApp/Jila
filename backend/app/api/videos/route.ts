@@ -50,9 +50,8 @@ export async function POST(request: Request) {
 
 export async function DELETE(request: Request) {
   try {
-    // Get the video title from the request URL
-    const { searchParams } = new URL(request.url);
-    const id = searchParams.get("id");
+    // Parse the request body to get the video id
+    const { id } = await request.json();
 
     if (!id) {
       return NextResponse.json(
@@ -61,7 +60,7 @@ export async function DELETE(request: Request) {
       );
     }
 
-    // Find the video by title
+    // Find the video by id
     const video = await prisma.videos.findFirst({
       where: { id },
     });
