@@ -1,97 +1,151 @@
-import Image from "next/image";
-import Link from "next/link";
-import { Suspense } from "react";
-import Table from "@/components/table";
-import TablePlaceholder from "@/components/table-placeholder";
-import ExpandingArrow from "@/components/expanding-arrow";
 
-export const dynamic = "force-dynamic";
+'use client';
+
+import { Suspense, useState, useEffect } from 'react';
+import { useAuth, useUser, SignInButton, SignUpButton, UserButton, SignOutButton } from '@clerk/nextjs';
+import Table from '@/components/table';
+import TablePlaceholder from '@/components/table-placeholder';
 
 export default function Home() {
+  const { isLoaded, isSignedIn } = useAuth();
+  const { user } = useUser(); // Access user details
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loadingAuth, setLoadingAuth] = useState(true);
+  const [title, setTitle] = useState('');
+  const [link, setLink] = useState('');
+  const [type, setType] = useState('OTHER');
+  const [length, setLength] = useState('');
+  const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    if (isSignedIn && user) {
+      const userEmail = user.primaryEmailAddress?.emailAddress;
+
+      if (userEmail) {
+        fetch(`/api/admins/${userEmail}`)
+          .then((res) => res.json())
+          .then((data) => {
+            setIsAuthenticated(data.authenticated);
+            setLoadingAuth(false);
+          })
+          .catch((error) => {
+            console.error('Error checking authentication:', error);
+            setLoadingAuth(false);
+          });
+      } else {
+        setLoadingAuth(false);
+      }
+    } else {
+      setLoadingAuth(false);
+    }
+  }, [isSignedIn, user]);
+
+  const handleAddVideo = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setMessage('');
+
+    try {
+      const response = await fetch('/api/videos', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ title, link, type, length, show: true }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to add video');
+      }
+
+      setMessage('Video added successfully!');
+      setTitle('');
+      setLink('');
+      setType('OTHER');
+      setLength('');
+    } catch (error: any) {
+      setMessage(error.message);
+    }
+  };
+
+  if (!isLoaded || loadingAuth) return <p>Loading...</p>;
+
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-center">
-      <Link
-        href="https://vercel.com/templates/next.js/postgres-prisma"
-        className="group mt-20 sm:mt-0 rounded-full flex space-x-1 bg-white/30 shadow-sm ring-1 ring-gray-900/5 text-gray-600 text-sm font-medium px-10 py-2 hover:shadow-lg active:shadow-sm transition-all"
-      >
-        <p>Deploy your own to Vercel</p>
-        <ExpandingArrow />
-      </Link>
       <h1 className="pt-4 pb-8 bg-gradient-to-br from-black via-[#171717] to-[#575757] bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-7xl">
-        Postgres on Vercel
+        Jila Admin Portal
       </h1>
-      <Suspense fallback={<TablePlaceholder />}>
-        <Table />
-      </Suspense>
-      <p className="font-light text-gray-600 w-full max-w-lg text-center mt-6">
-        <Link
-          href="https://vercel.com/postgres"
-          className="font-medium underline underline-offset-4 hover:text-black transition-colors"
-        >
-          Vercel Postgres
-        </Link>{" "}
-        demo with{" "}
-        <Link
-          href="https://prisma.io"
-          className="font-medium underline underline-offset-4 hover:text-black transition-colors"
-        >
-          Prisma
-        </Link>{" "}
-        as the ORM. <br /> Built with{" "}
-        <Link
-          href="https://nextjs.org/docs"
-          className="font-medium underline underline-offset-4 hover:text-black transition-colors"
-        >
-          Next.js App Router
-        </Link>
-        .
-      </p>
 
-      <div className="flex justify-center space-x-5 pt-10 mt-10 border-t border-gray-300 w-full max-w-xl text-gray-600">
-        <Link
-          href="https://postgres-starter.vercel.app/"
-          className="font-medium underline underline-offset-4 hover:text-black transition-colors"
-        >
-          Starter
-        </Link>
-        <Link
-          href="https://postgres-kysely.vercel.app/"
-          className="font-medium underline underline-offset-4 hover:text-black transition-colors"
-        >
-          Kysely
-        </Link>
-        <Link
-          href="https://postgres-drizzle.vercel.app/"
-          className="font-medium underline underline-offset-4 hover:text-black transition-colors"
-        >
-          Drizzle
-        </Link>
-      </div>
-
-      <div className="sm:absolute sm:bottom-0 w-full px-20 py-10 flex justify-between">
-        <Link href="https://vercel.com">
-          <Image
-            src="/vercel.svg"
-            alt="Vercel Logo"
-            width={100}
-            height={24}
-            priority
-          />
-        </Link>
-        <Link
-          href="https://github.com/vercel/examples/tree/main/storage/postgres-prisma"
-          className="flex items-center space-x-2"
-        >
-          <Image
-            src="/github.svg"
-            alt="GitHub Logo"
-            width={24}
-            height={24}
-            priority
-          />
-          <p className="font-light">Source</p>
-        </Link>
-      </div>
+      {!isSignedIn ? (
+        <div className="flex space-x-4 mt-6">
+          <SignInButton>
+            <button className="bg-blue-500 text-white px-4 py-2 rounded">Sign In</button>
+          </SignInButton>
+          <SignUpButton>
+            <button className="bg-green-500 text-white px-4 py-2 rounded">Sign Up</button>
+          </SignUpButton>
+        </div>
+      ) : !isAuthenticated ? (
+        <div className="flex flex-col items-center">
+          <p className="text-red-500 text-center mb-4">You are not authorized to access this page.</p>
+          <SignOutButton>
+            <button className="bg-red-500 text-white px-4 py-2 rounded">Sign Out</button>
+          </SignOutButton>
+        </div>
+      ) : (
+        <>
+          <UserButton />
+          <div className="mt-10 w-full max-w-3xl flex justify-center">
+            <Suspense fallback={<TablePlaceholder />}>
+              <Table isSignedIn={isSignedIn} />
+            </Suspense>
+          </div>
+          <div className="mt-10 w-full max-w-lg flex flex-col items-center">
+            <h2 className="text-xl font-semibold mb-4">Add New Video</h2>
+            {message && <p className="text-green-500 mb-4">{message}</p>}
+            <form onSubmit={handleAddVideo} className="flex flex-col space-y-4 w-full">
+              <input
+                type="text"
+                placeholder="Title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                required
+                className="p-2 border rounded w-full"
+              />
+              <input
+                type="text"
+                placeholder="YouTube Link"
+                value={link}
+                onChange={(e) => setLink(e.target.value)}
+                required
+                className="p-2 border rounded w-full"
+              />
+              <select
+                value={type}
+                onChange={(e) => setType(e.target.value)}
+                className="p-2 border rounded w-full"
+              >
+                <option value="PROFESSIONAL_DEVELOPMENT">Professional Development</option>
+                <option value="MEDICAL">Medical</option>
+                <option value="TRANSPORTATION">Transportation</option>
+                <option value="LEGAL">Legal</option>
+                <option value="OTHER">Other</option>
+              </select>
+              <input
+                type="text"
+                placeholder="Length"
+                value={length}
+                onChange={(e) => setLength(e.target.value)}
+                required
+                className="p-2 border rounded w-full"
+              />
+              <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded w-full">
+                Add Video
+              </button>
+            </form>
+          </div>
+        </>
+      )}
     </main>
   );
 }
