@@ -18,6 +18,9 @@ model videos {
   type VideoType
   length String
   link String
+  topic String
+  topic_id  String  @default(cuid())
+  sequence  Int
 }
 
 enum VideoType {
