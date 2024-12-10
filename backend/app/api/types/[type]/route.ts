@@ -20,9 +20,15 @@ export async function GET(
     where: { type: type as VideoType },
   });
 
-  if (!videos) {
+  if (videos.length == 0) {
     return NextResponse.json({ error: "No videos found" }, { status: 404 });
   }
 
-  return NextResponse.json(videos);
+  var ret_set = {};
+
+  for (const video of videos) {
+    ret_set[video.topic] = video.topic_id;
+  }
+
+  return NextResponse.json(ret_set);
 }
