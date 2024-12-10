@@ -19,7 +19,7 @@ model videos {
   length String
   link String
   topic String  @default("no_topic")
-  topic_id  String  @default(cuid())
+  topic_id  String  @default("NO_TOPIC")
   sequence  Int @default(1)
 }
 
