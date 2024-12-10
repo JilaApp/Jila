@@ -24,10 +24,10 @@ export async function GET(
     return NextResponse.json({ error: "No videos found" }, { status: 404 });
   }
 
-  var ret_set = {};
+  var ret_set: { [key: string]: string } = {};
 
   for (const video of videos) {
-    ret_set[video.topic] = video.topic_id;
+    ret_set[video.title] = video.id;
   }
 
   return NextResponse.json(ret_set);
