@@ -4,7 +4,7 @@
 
 # Jila
 
-J¡la (KAI-luh) is a student run startup at the University of Illinois Urbana-Champaign, and a subsidiary of Illinois Enactus. Jila aims to reduce language barriers for local Q’anjob’al-speaking immigrants by providing resources for skills crucial for daily life. Q’anjob’al is an indigenous and endangered language that is not similar to Spanish or English. As such, there are minimal resources and support for immigrants who live in the Champaign-Urbana area, and if they are, they are difficult to access. Our solution is a user-friendly mobile application which will host short, educational videos translated in Q’anjob’al covering various domains, such as transportation, medicine, law, and professional development. 
+Jila (KHēlä′) aims to reduce language barriers for local Q’anjob’al-speaking immigrants by providing resources for skills crucial for daily life. Q’anjob’al is a Mayan language that is not similar to Spanish or English, making it difficult for speakers to navigate everyday life. As such, several organizations in the Champaign-Urbana area have been working to strengthen resource access and support for local immigrants. Our solution is to bridge the technology gap by providing a user-friendly mobile application which will host short, educational videos translated in Q’anjob’al covering various domains, such as transportation, legal, medical, and professional development. This app will supplement current efforts, with the ultimate goal of increasing accessibility of resources. 
 
 ## Deploy for Frontend
 
