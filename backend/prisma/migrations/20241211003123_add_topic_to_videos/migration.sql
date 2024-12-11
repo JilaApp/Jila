@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "videos" ADD COLUMN     "sequence" INTEGER NOT NULL DEFAULT 1,
+ADD COLUMN     "topic" TEXT NOT NULL DEFAULT 'no_topic',
+ADD COLUMN     "topic_id" TEXT NOT NULL DEFAULT 'NO_TOPIC';

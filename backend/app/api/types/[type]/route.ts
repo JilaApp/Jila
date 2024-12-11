@@ -17,12 +17,18 @@ export async function GET(
   }
 
   const videos = await prisma.videos.findMany({
-    where: { type: type as VideoType },
+    where: { type: type as VideoType, show: true },
   });
 
-  if (!videos) {
+  if (videos.length == 0) {
     return NextResponse.json({ error: "No videos found" }, { status: 404 });
   }
 
-  return NextResponse.json(videos);
+  var ret_set: { [key: string]: string } = {};
+
+  for (const video of videos) {
+    ret_set[video.topic] = video.topic_id;
+  }
+
+  return NextResponse.json(ret_set);
 }

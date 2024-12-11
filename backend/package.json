@@ -14,6 +14,8 @@
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "dependencies": {
+    "@clerk/clerk-sdk-node": "^5.0.72",
+    "@clerk/nextjs": "^6.3.4",
     "@prisma/client": "^5.4.1",
     "@types/ms": "^0.7.32",
     "@types/node": "20.8.3",
@@ -31,6 +33,7 @@
     "tailwindcss": "3.3.3",
     "ts-node": "^10.9.1",
     "typescript": "5.2.2",
+    "uuid": "^11.0.3",
     "zod": "^3.23.8"
   }
 }
