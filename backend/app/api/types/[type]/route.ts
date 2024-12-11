@@ -27,7 +27,7 @@ export async function GET(
   var ret_set: { [key: string]: string } = {};
 
   for (const video of videos) {
-    ret_set[video.title] = video.id;
+    ret_set[video.topic] = video.topic_id;
   }
 
   return NextResponse.json(ret_set);
