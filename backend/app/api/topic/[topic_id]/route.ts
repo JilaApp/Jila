@@ -10,7 +10,7 @@ export async function GET(
   }
 
   const videos = await prisma.videos.findMany({
-    where: { topic_id: params.topic_id },
+    where: { topic_id: params.topic_id, show: true },
   });
 
   if (videos.length == 0) {

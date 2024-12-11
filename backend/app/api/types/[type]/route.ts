@@ -17,7 +17,7 @@ export async function GET(
   }
 
   const videos = await prisma.videos.findMany({
-    where: { type: type as VideoType },
+    where: { type: type as VideoType, show: true },
   });
 
   if (videos.length == 0) {
