@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "frontend",
-    "slug": "frontend",
+    "slug": "jila",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -14,7 +14,8 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "jila"
     },
     "android": {
       "adaptiveIcon": {
@@ -27,7 +28,10 @@
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
-    "plugins": ["expo-router", "expo-font"],
+    "plugins": [
+      "expo-router",
+      "expo-font"
+    ],
     "experiments": {
       "typedRoutes": true
     },
@@ -36,14 +40,15 @@
         "origin": false
       },
       "eas": {
-        "projectId": "398edf8e-f6cb-4d7c-ad74-12d95fc171b2"
+        "projectId": "d7fc8d5f-231f-4f23-baa9-c5ecc6aacd1c"
       }
     },
     "runtimeVersion": {
       "policy": "appVersion"
     },
     "updates": {
-      "url": "https://u.expo.dev/398edf8e-f6cb-4d7c-ad74-12d95fc171b2"
-    }
+      "url": "https://u.expo.dev/d7fc8d5f-231f-4f23-baa9-c5ecc6aacd1c"
+    },
+    "owner": "jila"
   }
 }
