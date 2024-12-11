@@ -19,6 +19,11 @@ export default function HomeScreen() {
     };
   });
 
+  const rows = [];
+  for (let i = 0; i < topics.length; i += 3) {
+    rows.push(topics.slice(i, i + 3));
+  }
+
   return (
     <View className="flex-1 bg-[#E4E4E4] p-4">
       <View className="flex-row items-center justify-between mb-4">
@@ -28,34 +33,38 @@ export default function HomeScreen() {
         </TouchableOpacity>
       </View>
 
-      <View className="flex-wrap flex-row justify-between bg-[#D9D9D9] p-6 rounded">
-        {topics.map((topic, index) => (
-          <View key={index} className="items-center m-2 w-16">
-            <TouchableOpacity
-              className={`w-16 h-16 items-center justify-center rounded-lg`}
-              style={{
-                backgroundColor: topic.enabled ? topic.color : "#D3D3D3",
-              }}
-              onPress={topic.onPress}
-              disabled={!topic.enabled}
-            >
-              {topic.type === iconType.Entypo ? (
-                <Entypo
-                  name={topic.icon as keyof typeof Entypo.glyphMap}
-                  size={37}
-                  color={topic.enabled ? "white" : "gray"}
-                />
-              ) : (
-                <FontAwesome
-                  name={topic.icon as keyof typeof FontAwesome.glyphMap}
-                  size={37}
-                  color={topic.enabled ? "white" : "gray"}
-                />
-              )}
-            </TouchableOpacity>
-            <Text className="text-center font-bold mt-2 text-black">
-              {topic.name}
-            </Text>
+      <View className="bg-[#D9D9D9] p-6 rounded">
+        {rows.map((row, rowIndex) => (
+          <View key={rowIndex} className="flex-row justify-between mb-4">
+            {row.map((topic, index) => (
+              <View key={index} className="items-center w-1/3">
+                <TouchableOpacity
+                  className={`w-16 h-16 items-center justify-center rounded-lg`}
+                  style={{
+                    backgroundColor: topic.enabled ? topic.color : "#D3D3D3",
+                  }}
+                  onPress={topic.onPress}
+                  disabled={!topic.enabled}
+                >
+                  {topic.type === iconType.Entypo ? (
+                    <Entypo
+                      name={topic.icon as keyof typeof Entypo.glyphMap}
+                      size={37}
+                      color={topic.enabled ? "white" : "gray"}
+                    />
+                  ) : (
+                    <FontAwesome
+                      name={topic.icon as keyof typeof FontAwesome.glyphMap}
+                      size={37}
+                      color={topic.enabled ? "white" : "gray"}
+                    />
+                  )}
+                </TouchableOpacity>
+                <Text className="text-center font-bold mt-2 text-black">
+                  {topic.name}
+                </Text>
+              </View>
+            ))}
           </View>
         ))}
       </View>
