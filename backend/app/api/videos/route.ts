@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { VideoType } from "@prisma/client";
 import { z } from "zod";
+import { v4 as uuidv4 } from "uuid";
 
 const videoSchema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -15,6 +16,9 @@ const videoSchema = z.object({
     .min(11, "Link (YouTube video ID) must be exactly 11 characters long")
     .max(11, "Link (YouTube video ID) must be exactly 11 characters long")
     .regex(/^[a-zA-Z0-9_-]{11}$/, "Invalid YouTube video ID format"),
+  topic: z.string().min(1, "Topic is required"),
+  topic_id: z.string().optional(),
+  sequence: z.number().optional()
 });
 
 export async function GET() {
@@ -32,10 +36,10 @@ export async function POST(request: Request) {
 
     const parsedData = videoSchema.parse(body);
 
-    const { title, show, type, length, link } = parsedData;
+    const { title, show, type, length, link, topic, topic_id, sequence } = parsedData;
 
     const newVideo = await prisma.videos.create({
-      data: { title, show: show ?? true, type, length, link },
+      data: { title, show: show ?? true, type, length, link, topic, topic_id : topic_id ?? uuidv4(), sequence},
     });
 
     return NextResponse.json(newVideo, { status: 201 });
@@ -44,7 +48,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ errors: error.errors }, { status: 400 });
     }
 
-    return NextResponse.json({ error: "Failed to add video" }, { status: 500 });
+    return NextResponse.json({ error: "Failed to add video" + error }, { status: 500 });
   }
 }
 
