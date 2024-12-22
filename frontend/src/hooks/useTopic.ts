@@ -6,16 +6,24 @@ const EXPO_PUBLIC_API_BASE_URL = process.env.EXPO_PUBLIC_API_BASE_URL;
 if (!EXPO_PUBLIC_API_BASE_URL)
   throw new Error("Missing EXPO_PUBLIC_API_BASE_URL");
 
-type TopicType = {
-  [key: string]: string;
+type VideoType = {
+  id: string;
+  title: string;
+  show: boolean;
+  type: string;
+  length: string;
+  link: string;
+  topic: string;
+  topic_id: string;
+  sequence: number;
 };
 
-export const useVideos = (category: Category) => {
-  return useQuery<TopicType>({
-    queryKey: ["types", category],
+export const useTopic = (topicId: string) => {
+  return useQuery<VideoType[]>({
+    queryKey: ["topic", topicId],
     queryFn: async () => {
       const response = await fetch(
-        `${EXPO_PUBLIC_API_BASE_URL}/api/types/${category}`
+        `${EXPO_PUBLIC_API_BASE_URL}/api/topic/${topicId}`
       );
 
       if (!response.ok) {
@@ -26,6 +34,6 @@ export const useVideos = (category: Category) => {
 
       return responseJson;
     },
-    enabled: !!category,
+    enabled: !!topicId,
   });
 };

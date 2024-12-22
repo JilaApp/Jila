@@ -1,6 +1,11 @@
 import { useVideos } from "@/src/hooks/useVideos";
-import { categories, Category, iconMap, iconType, Video } from "@/types";
-import { Entypo, FontAwesome, FontAwesome6 } from "@expo/vector-icons";
+import { categories, Category, iconMap, iconType } from "@/types";
+import {
+  AntDesign,
+  Entypo,
+  FontAwesome,
+  FontAwesome6,
+} from "@expo/vector-icons";
 import { Tabs, useLocalSearchParams, useRouter } from "expo-router";
 import { View, Text, TouchableOpacity } from "react-native";
 
@@ -12,7 +17,7 @@ export default function DetailsScreen() {
   const name = iconMap[categoryName]?.name;
   const type = iconMap[categoryName]?.type;
 
-  const { data: videos, isLoading, error } = useVideos(category as Category);
+  const { data: topics, isLoading, error } = useVideos(category as Category);
 
   const renderHeaderIcon = () => {
     if (type === iconType.Entypo) {
@@ -69,14 +74,19 @@ export default function DetailsScreen() {
 
   if (error) {
     if (error.message === "404") {
-      return renderContent("Videos Not Found");
+      return renderContent("Category Not Found");
     }
     return renderContent(error.message);
   }
 
-  if (!videos || Object.keys(videos).length === 0) {
-    return renderContent("No videos found");
+  if (!topics || Object.keys(topics).length === 0) {
+    return renderContent("No topics found");
   }
+
+  const capitalize = (str: string) => {
+    if (!str) return str;
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  };
 
   return (
     <View className="bg-[#E4E4E4] h-full">
@@ -94,21 +104,35 @@ export default function DetailsScreen() {
           <FontAwesome6 name="angle-left" size={36} color="white" />
         </TouchableOpacity>
       </View>
-      {Object.entries(videos).map(([topic, id]) => (
-        <View key={id} className="mb-4">
-          <Text className="text-lg font-bold">{topic}</Text>
-          <Text>{id}</Text>
+      <View className="p-6">
+        <View className="flex-row justify-between mb-6">
+          <Text className="text-2xl font-bold">
+            {capitalize(category)} Videos
+          </Text>
+          <TouchableOpacity className="w-8 h-8 rounded-full bg-[#7E0601] items-center justify-center -ml-8">
+            <AntDesign name={"sound"} size={20} color={"white"} />
+          </TouchableOpacity>
         </View>
-      ))}
-      <TouchableOpacity
-        onPress={() => {
-          router.push(`/details/${category}/videos`);
-        }}
-      >
-        <View className="h-12 bg-blue-400 flex items-center justify-center">
-          <Text className="text-white">Watch Video</Text>
-        </View>
-      </TouchableOpacity>
+        {Object.entries(topics).map(([topic, id]) => (
+          <TouchableOpacity
+            key={id}
+            onPress={() => {
+              router.push(`/details/${category}/${id}`);
+            }}
+          >
+            <View className="mb-4 flex-row justify-between">
+              <View className="flex-row space-x-2 items-center">
+                <TouchableOpacity className="w-10 h-10 rounded-full bg-[#7E0601] items-center justify-center">
+                  <AntDesign name={"sound"} size={28} color={"white"} />
+                </TouchableOpacity>
+                <Text className="text-lg">{topic}</Text>
+              </View>
+
+              <FontAwesome6 name="angle-right" size={32} color="grey" />
+            </View>
+          </TouchableOpacity>
+        ))}
+      </View>
     </View>
   );
 }
