@@ -43,7 +43,7 @@ export default function DetailsScreen() {
       />
       <View className="w-full bg-[#A30700] flex items-start">
         <TouchableOpacity
-          onPress={() => router.navigate("/(home)")}
+          onPress={() => router.navigate("/(tabs)/(home)")}
           activeOpacity={0.5}
           className="px-4 py-2"
         >
@@ -60,7 +60,7 @@ export default function DetailsScreen() {
     typeof category !== "string" ||
     !categories.includes(category as Category)
   ) {
-    return renderContent("Not Found");
+    return renderContent("Category Not Found");
   }
 
   if (isLoading) {
@@ -68,10 +68,13 @@ export default function DetailsScreen() {
   }
 
   if (error) {
-    return renderContent("Error");
+    if (error.message === "404") {
+      return renderContent("Videos Not Found");
+    }
+    return renderContent(error.message);
   }
 
-  if (videos.length === 0) {
+  if (!videos || Object.keys(videos).length === 0) {
     return renderContent("No videos found");
   }
 
@@ -84,24 +87,17 @@ export default function DetailsScreen() {
       />
       <View className="w-full bg-[#A30700] flex items-start">
         <TouchableOpacity
-          onPress={() => router.navigate("/(home)")}
+          onPress={() => router.navigate("/(tabs)/(home)")}
           activeOpacity={0.5}
           className="px-4 py-2"
         >
           <FontAwesome6 name="angle-left" size={36} color="white" />
         </TouchableOpacity>
       </View>
-      {videos.map((video: Video) => (
-        <View key={video.id}>
-          <View className="h-4" />
-          <View className="flex items-center justify-center">
-            <Text>ID: {video.id}</Text>
-            <Text>Title: {video.title}</Text>
-            <Text>Show: {video.show ? "true" : "false"}</Text>
-            <Text>Type: {video.type}</Text>
-            <Text>Length: {video.length} mins</Text>
-            <Text>Link: {video.link}</Text>
-          </View>
+      {Object.entries(videos).map(([topic, id]) => (
+        <View key={id} className="mb-4">
+          <Text className="text-lg font-bold">{topic}</Text>
+          <Text>{id}</Text>
         </View>
       ))}
       <TouchableOpacity
