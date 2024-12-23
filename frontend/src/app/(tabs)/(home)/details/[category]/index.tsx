@@ -51,7 +51,7 @@ export default function DetailsScreen() {
   };
 
   const renderContent = (message: string) => (
-    <View className="h-full">
+    <View className="bg-[#E4E4E4] h-full">
       <Tabs.Screen
         options={{
           headerTitle: renderHeaderIcon,
