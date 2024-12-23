@@ -131,23 +131,21 @@ export default function DetailsScreen() {
         </View>
         <ScrollView showsVerticalScrollIndicator={false} className="mb-20">
           {Object.entries(topics).map(([topic, id]) => (
-            <TouchableOpacity
-              key={id}
-              onPress={() => {
-                router.push(`/details/${category}/${id}`);
-              }}
-            >
-              <View className="mb-4 flex-row justify-between">
-                <View className="flex-row space-x-2 items-center">
-                  <TouchableOpacity className="w-10 h-10 rounded-full bg-[#7E0601] items-center justify-center">
-                    <AntDesign name={"sound"} size={28} color={"white"} />
-                  </TouchableOpacity>
-                  <Text className="text-lg">{topic}</Text>
-                </View>
-
-                <FontAwesome6 name="angle-right" size={32} color="grey" />
+            <View key={id} className="mb-4 flex-row justify-between">
+              <View className="flex-row space-x-2 items-center">
+                <TouchableOpacity className="w-10 h-10 rounded-full bg-[#7E0601] items-center justify-center">
+                  <AntDesign name={"sound"} size={28} color={"white"} />
+                </TouchableOpacity>
+                <Text className="text-lg">{topic}</Text>
               </View>
-            </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  router.push(`/details/${category}/${id}`);
+                }}
+              >
+                <FontAwesome6 name="angle-right" size={32} color="grey" />
+              </TouchableOpacity>
+            </View>
           ))}
         </ScrollView>
       </View>
