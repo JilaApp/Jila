@@ -1,12 +1,30 @@
 import { useTopic } from "@/src/hooks/useTopic";
 import { AntDesign, FontAwesome6 } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
 
 export default function TopicScreen() {
   const { topicId, category } = useLocalSearchParams();
   const router = useRouter();
   const { data: videos, isLoading, error } = useTopic(topicId as string);
+
+  if (isLoading) {
+    return (
+      <ActivityIndicator
+        className="flex-1 justify-center items-center"
+        size={"large"}
+        color={"#7E0601"}
+      />
+    );
+  }
+
+  if (error) {
+    return (
+      <View className="flex-1 justify-center items-center">
+        <Text className="text-[#7E0601]">{error.message}</Text>
+      </View>
+    );
+  }
 
   return (
     <View className="bg-[#E4E4E4] h-full">

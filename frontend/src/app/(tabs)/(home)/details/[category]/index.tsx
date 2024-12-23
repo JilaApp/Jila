@@ -7,7 +7,7 @@ import {
   FontAwesome6,
 } from "@expo/vector-icons";
 import { Tabs, useLocalSearchParams, useRouter } from "expo-router";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
 
 export default function DetailsScreen() {
   const { category } = useLocalSearchParams();
@@ -71,9 +71,11 @@ export default function DetailsScreen() {
         </TouchableOpacity>
       </View>
       <View className="flex-1 justify-center items-center">
-        <Text className={`${!isLoading && "text-red-700"} text-lg`}>
-          {message}
-        </Text>
+        {isLoading ? (
+          <ActivityIndicator size={"large"} color={"#7E0601"} />
+        ) : (
+          <Text className="text-lg text-[#7E0601]">{message}</Text>
+        )}
       </View>
     </View>
   );
@@ -83,10 +85,6 @@ export default function DetailsScreen() {
     !categories.includes(category as Category)
   ) {
     return renderContent("Category Not Found");
-  }
-
-  if (isLoading) {
-    return renderContent("Loading...");
   }
 
   if (error) {
