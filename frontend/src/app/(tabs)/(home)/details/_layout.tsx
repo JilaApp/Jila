@@ -45,7 +45,7 @@ export default function DetailsLayout() {
         <Stack.Screen name="[category]/index" />
         <Stack.Screen name="[category]/[topicId]/index" />
         <Stack.Screen
-          name="[category]/[topicId]/videos/index"
+          name="[category]/[topicId]/[position]/index"
           options={{
             animation: "slide_from_bottom",
           }}

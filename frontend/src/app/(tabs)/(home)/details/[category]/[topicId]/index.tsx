@@ -1,6 +1,8 @@
 import { useTopic } from "@/src/hooks/useTopic";
 import { AntDesign, FontAwesome6 } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useLocalSearchParams, useRouter } from "expo-router";
+import { useEffect } from "react";
 import {
   View,
   Text,
@@ -13,6 +15,14 @@ export default function TopicScreen() {
   const { topicId, category } = useLocalSearchParams();
   const router = useRouter();
   const { data: videos, isLoading, error } = useTopic(topicId as string);
+
+  useEffect(() => {
+    if (videos) {
+      AsyncStorage.setItem(`videos_${topicId}`, JSON.stringify(videos))
+        .then(() => console.log("Videos stored successfully"))
+        .catch((err) => console.error("Failed to store videos", err));
+    }
+  }, [videos, topicId]);
 
   if (isLoading) {
     return (
@@ -52,11 +62,11 @@ export default function TopicScreen() {
         </View>
         <Text className="text-[#858597] mb-6">{videos?.length} Videos</Text>
         <ScrollView showsVerticalScrollIndicator={false} className="mb-60">
-          {videos?.map(({ id, length, title }) => (
+          {videos?.map(({ id, length, title }, index) => (
             <TouchableOpacity
               key={id}
               onPress={() => {
-                router.push(`/details/${category}/${topicId}/videos`);
+                router.push(`/details/${category}/${topicId}/${index}`);
               }}
             >
               <View key={id} className="mb-4 flex-row justify-between">
