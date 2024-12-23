@@ -7,7 +7,13 @@ import {
   FontAwesome6,
 } from "@expo/vector-icons";
 import { Tabs, useLocalSearchParams, useRouter } from "expo-router";
-import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ActivityIndicator,
+  ScrollView,
+} from "react-native";
 
 export default function DetailsScreen() {
   const { category } = useLocalSearchParams();
@@ -123,25 +129,27 @@ export default function DetailsScreen() {
             <AntDesign name={"sound"} size={20} color={"white"} />
           </TouchableOpacity>
         </View>
-        {Object.entries(topics).map(([topic, id]) => (
-          <TouchableOpacity
-            key={id}
-            onPress={() => {
-              router.push(`/details/${category}/${id}`);
-            }}
-          >
-            <View className="mb-4 flex-row justify-between">
-              <View className="flex-row space-x-2 items-center">
-                <TouchableOpacity className="w-10 h-10 rounded-full bg-[#7E0601] items-center justify-center">
-                  <AntDesign name={"sound"} size={28} color={"white"} />
-                </TouchableOpacity>
-                <Text className="text-lg">{topic}</Text>
-              </View>
+        <ScrollView showsVerticalScrollIndicator={false} className="mb-20">
+          {Object.entries(topics).map(([topic, id]) => (
+            <TouchableOpacity
+              key={id}
+              onPress={() => {
+                router.push(`/details/${category}/${id}`);
+              }}
+            >
+              <View className="mb-4 flex-row justify-between">
+                <View className="flex-row space-x-2 items-center">
+                  <TouchableOpacity className="w-10 h-10 rounded-full bg-[#7E0601] items-center justify-center">
+                    <AntDesign name={"sound"} size={28} color={"white"} />
+                  </TouchableOpacity>
+                  <Text className="text-lg">{topic}</Text>
+                </View>
 
-              <FontAwesome6 name="angle-right" size={32} color="grey" />
-            </View>
-          </TouchableOpacity>
-        ))}
+                <FontAwesome6 name="angle-right" size={32} color="grey" />
+              </View>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
       </View>
     </View>
   );
