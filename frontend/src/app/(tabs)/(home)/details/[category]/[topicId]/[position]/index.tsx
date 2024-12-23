@@ -60,7 +60,7 @@ export default function Videos() {
   }
 
   return (
-    <View className="flex-1 bg-gray-100 justify-center items-center my-4">
+    <View className="flex-1 h-full bg-[#E4E4E4] justify-center items-center py-4">
       <Text className="text-black text-2xl font-bold">{videoData.title}</Text>
       <Text className="text-[#9393A3] mb-4 text-base">
         Click the button to get started
