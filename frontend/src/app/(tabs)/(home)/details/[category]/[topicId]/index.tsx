@@ -29,6 +29,7 @@ export default function TopicScreen() {
         <Text className="text-[#858597] mb-6">{videos?.length} Videos</Text>
         {videos?.map(({ id, length, title }) => (
           <TouchableOpacity
+            key={id}
             onPress={() => {
               router.push(`/details/${category}/${topicId}/videos`);
             }}

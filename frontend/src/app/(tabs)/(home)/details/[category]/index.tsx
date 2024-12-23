@@ -19,6 +19,11 @@ export default function DetailsScreen() {
 
   const { data: topics, isLoading, error } = useVideos(category as Category);
 
+  const capitalize = (str: string) => {
+    if (!str) return str;
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  };
+
   const renderHeaderIcon = () => {
     if (type === iconType.Entypo) {
       return (
@@ -55,8 +60,20 @@ export default function DetailsScreen() {
           <FontAwesome6 name="angle-left" size={36} color="white" />
         </TouchableOpacity>
       </View>
-      <View className="flex justify-center items-center h-full">
-        <Text>{message}</Text>
+      <View className="flex-row justify-between p-6">
+        {categories.includes(category as Category) && (
+          <Text className="text-2xl font-bold">
+            {capitalize(iconMap[category as Category].label)} Videos
+          </Text>
+        )}
+        <TouchableOpacity className="w-8 h-8 rounded-full bg-[#7E0601] items-center justify-center -ml-8">
+          <AntDesign name={"sound"} size={20} color={"white"} />
+        </TouchableOpacity>
+      </View>
+      <View className="flex-1 justify-center items-center">
+        <Text className={`${!isLoading && "text-red-700"} text-lg`}>
+          {message}
+        </Text>
       </View>
     </View>
   );
@@ -74,7 +91,7 @@ export default function DetailsScreen() {
 
   if (error) {
     if (error.message === "404") {
-      return renderContent("Category Not Found");
+      return renderContent("No Topics Found");
     }
     return renderContent(error.message);
   }
@@ -82,11 +99,6 @@ export default function DetailsScreen() {
   if (!topics || Object.keys(topics).length === 0) {
     return renderContent("No topics found");
   }
-
-  const capitalize = (str: string) => {
-    if (!str) return str;
-    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-  };
 
   return (
     <View className="bg-[#E4E4E4] h-full">
@@ -107,7 +119,7 @@ export default function DetailsScreen() {
       <View className="p-6">
         <View className="flex-row justify-between mb-6">
           <Text className="text-2xl font-bold">
-            {capitalize(category)} Videos
+            {capitalize(iconMap[category as Category].label)} Videos
           </Text>
           <TouchableOpacity className="w-8 h-8 rounded-full bg-[#7E0601] items-center justify-center -ml-8">
             <AntDesign name={"sound"} size={20} color={"white"} />
