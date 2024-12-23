@@ -17,7 +17,7 @@ export default function TopicScreen() {
   if (isLoading) {
     return (
       <ActivityIndicator
-        className="flex-1 justify-center items-center"
+        className="bg-[#E4E4E4] flex-1 justify-center items-center"
         size={"large"}
         color={"#7E0601"}
       />
@@ -26,7 +26,7 @@ export default function TopicScreen() {
 
   if (error) {
     return (
-      <View className="flex-1 justify-center items-center">
+      <View className="bg-[#E4E4E4] flex-1 justify-center items-center">
         <Text className="text-[#7E0601]">{error.message}</Text>
       </View>
     );
