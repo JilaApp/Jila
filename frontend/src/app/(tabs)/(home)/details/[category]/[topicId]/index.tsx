@@ -18,9 +18,7 @@ export default function TopicScreen() {
 
   useEffect(() => {
     if (videos) {
-      AsyncStorage.setItem(`videos_${topicId}`, JSON.stringify(videos))
-        .then(() => console.log("Videos stored successfully"))
-        .catch((err) => console.error("Failed to store videos", err));
+      AsyncStorage.setItem(`videos_${topicId}`, JSON.stringify(videos));
     }
   }, [videos, topicId]);
 
