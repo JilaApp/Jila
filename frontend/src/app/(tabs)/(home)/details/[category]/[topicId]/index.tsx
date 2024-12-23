@@ -52,7 +52,7 @@ export default function TopicScreen() {
         </TouchableOpacity>
       </View>
       <View className="p-6">
-        <View className="flex-row justify-between">
+        <View className="flex-row space-x-2">
           <Text className="text-2xl font-bold">{videos?.[0].topic}</Text>
           <TouchableOpacity className="w-8 h-8 rounded-full bg-[#7E0601] items-center justify-center -ml-8">
             <AntDesign name={"sound"} size={20} color={"white"} />
@@ -79,7 +79,7 @@ export default function TopicScreen() {
                   router.push(`/details/${category}/${topicId}/${index}`);
                 }}
               >
-                <AntDesign name="play" size={32} color={"#7E0601"} />
+                <AntDesign name="play" size={32} color={"#C74F4A"} />
               </TouchableOpacity>
             </View>
           ))}

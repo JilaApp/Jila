@@ -121,11 +121,11 @@ export default function DetailsScreen() {
         </TouchableOpacity>
       </View>
       <View className="p-6">
-        <View className="flex-row justify-between mb-6">
+        <View className="flex-row space-x-2 mb-6">
           <Text className="text-2xl font-bold">
             {capitalize(iconMap[category as Category].label)} Videos
           </Text>
-          <TouchableOpacity className="w-8 h-8 rounded-full bg-[#7E0601] items-center justify-center -ml-8">
+          <TouchableOpacity className="w-8 h-8 rounded-full bg-[#7E0601] items-center justify-center">
             <AntDesign name={"sound"} size={20} color={"white"} />
           </TouchableOpacity>
         </View>
