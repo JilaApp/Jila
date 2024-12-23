@@ -33,10 +33,10 @@ export default function TopicScreen() {
   }
 
   return (
-    <View className="bg-[#E4E4E4]">
+    <View className="bg-[#E4E4E4] h-full">
       <View className="w-full bg-[#A30700] flex items-start">
         <TouchableOpacity
-          onPress={() => router.navigate(`/details/${category}`)}
+          onPress={() => router.back()}
           activeOpacity={0.5}
           className="px-4 py-2"
         >
