@@ -61,4 +61,6 @@ export interface Video {
   type: Category;
   length: string;
   link: string;
+  topic: string;
+  topic_id: string;
 }
