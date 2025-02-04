@@ -4,11 +4,13 @@
 
 # Jila
 
-Jila (KHēlä′) aims to reduce language barriers for local Q’anjob’al-speaking immigrants by providing resources for skills crucial for daily life. Q’anjob’al is a Mayan language that is not similar to Spanish or English, making it difficult for speakers to navigate everyday life. As such, several organizations in the Champaign-Urbana area have been working to strengthen resource access and support for local immigrants. Our solution is to bridge the technology gap by providing a user-friendly mobile application which will host short, educational videos translated in Q’anjob’al covering various domains, such as transportation, legal, medical, and professional development. This app will supplement current efforts, with the ultimate goal of increasing accessibility of resources. 
+Jila (KHēlä′) aims to reduce language barriers for local Q’anjob’al-speaking immigrants by providing resources for skills crucial for daily life. Q’anjob’al is a Mayan language that is not similar to Spanish or English, making it difficult for speakers to navigate everyday life. As such, several organizations in the Champaign-Urbana area have been working to strengthen resource access and support for local immigrants. Our solution is to bridge the technology gap by providing a user-friendly mobile application which will host short, educational videos translated in Q’anjob’al covering various domains, such as transportation, legal, medical, and professional development. This app will supplement current efforts, with the ultimate goal of increasing accessibility of resources.
 
 ## Deploy for Frontend
 
-TBD
+For preview, we can use [Expo Preview](https://docs.expo.dev/review/share-previews-with-your-team/).
+
+For production, we can follow [these steps](https://docs.expo.dev/deploy/build-project/)
 
 ## Deploy for Backend
 
