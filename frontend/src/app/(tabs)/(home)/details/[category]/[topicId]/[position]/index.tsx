@@ -32,7 +32,7 @@ export default function Videos() {
           setVideoData(parsedVideos[currentPosition]);
         }
       } catch (error) {
-        console.error("Failed to retrieve videos from local storage", error);
+        console.error("Shouri's here", error);
       }
     };
 
