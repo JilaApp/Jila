@@ -86,6 +86,10 @@ export default function DetailsScreen() {
     </View>
   );
 
+  if (category != "legal") {
+    return renderContent("No topics found");
+  }
+
   if (
     typeof category !== "string" ||
     !categories.includes(category as Category)
