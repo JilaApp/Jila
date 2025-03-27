@@ -1,26 +1,35 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider  = "postgresql"
-  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
 model videos {
-  id        String   @id @default(cuid())
-  title String
-  show Boolean @default(true)
-  type VideoType
-  length String
-  link String
-  topic String  @default("no_topic")
-  topic_id  String  @default("NO_TOPIC")
-  sequence  Int @default(1)
+  id                String    @id @default(cuid())
+  title             String
+  show              Boolean   @default(true)
+  type              VideoType
+  length            String
+  link              String
+  sequence          Int       @default(1)
+  topic             String    @default("no_topic")
+  topic_id          String    @default("NO_TOPIC")
+  google_drive_link String?
+}
+
+model admins {
+  uid   String @id @default(cuid())
+  email String
+}
+
+model Feedback {
+  categories String @id @default("0")
+  Up         Int?
+  Down       Int?
 }
 
 enum VideoType {
@@ -29,9 +38,4 @@ enum VideoType {
   TRANSPORTATION
   LEGAL
   OTHER
-}
-
-model admins {
-  uid String @id @default(cuid())
-  email String 
 }
