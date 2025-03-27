@@ -18,7 +18,8 @@ const videoSchema = z.object({
     .regex(/^[a-zA-Z0-9_-]{11}$/, "Invalid YouTube video ID format"),
   topic: z.string().min(1, "Topic is required"),
   topic_id: z.string().optional(),
-  sequence: z.number().optional()
+  sequence: z.number().optional(),
+  google_drive_link: z.string().optional()
 });
 
 export async function GET() {
@@ -36,10 +37,10 @@ export async function POST(request: Request) {
 
     const parsedData = videoSchema.parse(body);
 
-    const { title, show, type, length, link, topic, topic_id, sequence } = parsedData;
+    const { title, show, type, length, link, topic, topic_id, sequence, google_drive_link } = parsedData;
 
     const newVideo = await prisma.videos.create({
-      data: { title, show: show ?? true, type, length, link, topic, topic_id : topic_id ?? uuidv4(), sequence},
+      data: { title, show: show ?? true, type, length, link, topic, topic_id : topic_id ?? uuidv4(), sequence, google_drive_link },
     });
 
     return NextResponse.json(newVideo, { status: 201 });

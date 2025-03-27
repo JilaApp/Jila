@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   Platform,
   ActivityIndicator,
+  Linking,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { WebView } from "react-native-webview";
@@ -30,6 +31,7 @@ export default function Videos() {
           const parsedVideos = JSON.parse(storedVideos);
           setVideos(parsedVideos);
           setVideoData(parsedVideos[currentPosition]);
+          console.log(parsedVideos);
         }
       } catch (error) {
         console.error("Failed to retrieve videos from local storage", error);
@@ -61,10 +63,35 @@ export default function Videos() {
 
   return (
     <View className="flex-1 h-full bg-[#E4E4E4] justify-center items-center py-4">
-      <Text className="text-black text-2xl font-bold">{videoData.title}</Text>
-      <Text className="text-[#9393A3] mb-4 text-base">
-        Click the button to get started
-      </Text>
+      <View className="flex flex-row gap-5 h-1/4 my-auto">
+        <View className="basis-2/3">
+          <Text className="text-black text-2xl font-bold">
+            {videoData.title}
+          </Text>
+          <Text className="text-[#9393A3] mb-4 text-base">
+            Click the button to get started
+          </Text>
+        </View>
+        <TouchableOpacity
+          className="basis-1/3"
+          onPress={() => {
+            Linking.openURL(
+              `https://drive.google.com/file/d/${videoData.google_drive_link}/view`
+            );
+            console.log(videoData.google_drive_link);
+          }}
+        >
+          {/* `https://drive.google.com/file/d/${videoData.google_drive_link}/view` */}
+          {/* `https://drive.google.com/file/d/1ZGh9S8ybWrXW8Arc2GxH0UIphHuzLsTs/view` */}
+          <AntDesign
+            name="download"
+            size={38}
+            color={`${
+              currentPosition === videos.length - 1 ? "gray" : "black"
+            }`}
+          />
+        </TouchableOpacity>
+      </View>
       <SafeAreaView className="flex-1 w-full">
         <WebView
           style={{ marginTop: Platform.OS === "ios" ? 20 : 0 }}
