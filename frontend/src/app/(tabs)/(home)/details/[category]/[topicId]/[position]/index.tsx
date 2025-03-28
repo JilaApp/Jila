@@ -7,6 +7,7 @@ import {
   Platform,
   ActivityIndicator,
   Linking,
+  Alert,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { WebView } from "react-native-webview";
@@ -63,12 +64,13 @@ export default function Videos() {
 
   return (
     <View className="flex-1 h-full bg-[#E4E4E4] justify-center items-center py-4">
-      <View className="flex flex-row gap-5 h-1/4 my-auto">
+      {/* Header */}
+      <View className="flex flex-row gap-5 h-1/5">
         <View className="basis-2/3">
           <Text className="text-black text-2xl font-bold">
             {videoData.title}
           </Text>
-          <Text className="text-[#9393A3] mb-4 text-base">
+          <Text className="text-[#9393A3] text-base">
             Click the button to get started
           </Text>
         </View>
@@ -79,6 +81,8 @@ export default function Videos() {
               `https://drive.google.com/file/d/${videoData.google_drive_link}/view`
             );
             console.log(videoData.google_drive_link);
+            console.log(videoData.num_upvotes);
+            console.log(videoData.num_downvotes);
           }}
         >
           {/* `https://drive.google.com/file/d/${videoData.google_drive_link}/view` */}
@@ -90,6 +94,23 @@ export default function Videos() {
               currentPosition === videos.length - 1 ? "gray" : "black"
             }`}
           />
+        </TouchableOpacity>
+      </View>
+      {/* Thumbs Up / Thumbs Down Feedback Buttons */}
+      <View className="w-full flex-row justify-between px-20 mb-4">
+        <TouchableOpacity
+          onPress={async () => {
+            Alert.alert("Feedback", "You pressed Thumbs Up!");
+          }}
+        >
+          <FontAwesome6 name="thumbs-up" size={28} color="#7E0601" />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={async () => {
+            Alert.alert("Feedback", "You pressed Thumbs Down!");
+          }}
+        >
+          <FontAwesome6 name="thumbs-down" size={28} color="#7E0601" />
         </TouchableOpacity>
       </View>
       <SafeAreaView className="flex-1 w-full">
