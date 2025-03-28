@@ -35,3 +35,9 @@ model admins {
   uid String @id @default(cuid())
   email String 
 }
+
+model feedback {
+  categories String
+  up Int
+  down Int
+}

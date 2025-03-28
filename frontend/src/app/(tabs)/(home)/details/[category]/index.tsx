@@ -13,7 +13,18 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   ScrollView,
+  Alert,
 } from "react-native";
+
+// Dynamically determine the API URL based on the environment.
+const getApiUrl = () => {
+  if (__DEV__) {
+    // Replace '192.168.1.100' with your computer's local IP address.
+    return "http://130.126.255.224:3000/api/feedback";
+  }
+  return "https://my-app.vercel.app/api/feedback";
+};
+const API_URL = getApiUrl();
 
 export default function DetailsScreen() {
   const { category } = useLocalSearchParams();
@@ -24,6 +35,30 @@ export default function DetailsScreen() {
   const type = iconMap[categoryName]?.type;
 
   const { data: topics, isLoading, error } = useVideos(category as Category);
+
+  const trackFeedback = async (feedbackType: "up" | "down") => {
+    try {
+      console.log("Sending feedback:", { category, feedbackType, API_URL });
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          category,
+          feedbackType,
+        }),
+      });
+      const responseText = await response.text();
+      if (!response.ok) {
+        console.error("Error tracking feedback:", responseText);
+        Alert.alert("Feedback Error", responseText || "Unknown error");
+      } else {
+        console.log("Feedback tracked successfully:", responseText);
+      }
+    } catch (err) {
+      console.error("Network error tracking feedback:", err);
+      Alert.alert("Network Error", JSON.stringify(err));
+    }
+  };
 
   const capitalize = (str: string) => {
     if (!str) return str;
@@ -85,6 +120,10 @@ export default function DetailsScreen() {
       </View>
     </View>
   );
+
+  if (category !== "legal") {
+    return renderContent("Category Not Found");
+  }
 
   if (
     typeof category !== "string" ||
@@ -148,6 +187,25 @@ export default function DetailsScreen() {
             </View>
           ))}
         </ScrollView>
+        {/* Thumbs Up / Thumbs Down Feedback Buttons */}
+        <View className="flex-row justify-around mt-4">
+          <TouchableOpacity
+            onPress={async () => {
+              await trackFeedback("up");
+              Alert.alert("Feedback", "You pressed Thumbs Up!");
+            }}
+          >
+            <FontAwesome6 name="thumbs-up" size={28} color="#7E0601" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={async () => {
+              await trackFeedback("down");
+              Alert.alert("Feedback", "You pressed Thumbs Down!");
+            }}
+          >
+            <FontAwesome6 name="thumbs-down" size={28} color="#7E0601" />
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
