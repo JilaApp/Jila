@@ -19,6 +19,8 @@ model videos {
   topic             String    @default("no_topic")
   topic_id          String    @default("NO_TOPIC")
   google_drive_link String?
+  num_upvotes       Int?
+  num_downvotes     Int?
 }
 
 model admins {
@@ -26,10 +28,10 @@ model admins {
   email String
 }
 
-model Feedback {
-  categories String @id @default("0")
-  Up         Int?
-  Down       Int?
+model feedback {
+  categories String @id(map: "Feedback_pkey") @default("0")
+  up         Int?
+  down       Int?
 }
 
 enum VideoType {

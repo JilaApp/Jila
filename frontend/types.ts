@@ -64,4 +64,6 @@ export interface Video {
   topic: string;
   topic_id: string;
   google_drive_link: string; 
+  num_upvotes: number;
+  num_downvotes: number;
 }
