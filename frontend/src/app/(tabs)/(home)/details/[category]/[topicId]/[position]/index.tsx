@@ -54,6 +54,28 @@ export default function Videos() {
     }
   };
 
+  const handleUpvote = async (videoId: string) => {
+    try {
+      const response = await fetch("/api/vote", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: videoId, action: "upvote" }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to upvote");
+      }
+
+      const data = await response.json();
+      Alert.alert("Feedback", "You pressed Thumbs Up!");
+    } catch (error) {
+      console.error("Error upvoting video:", error);
+      Alert.alert("Error", "Failed to upvote the video.");
+    }
+  };
+
   if (!videoData) {
     return (
       <View className="flex-1">
@@ -100,6 +122,7 @@ export default function Videos() {
       <View className="w-full flex-row justify-between px-20 mb-4">
         <TouchableOpacity
           onPress={async () => {
+            await handleUpvote(videoData.id);
             Alert.alert("Feedback", "You pressed Thumbs Up!");
           }}
         >
