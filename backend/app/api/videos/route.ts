@@ -90,3 +90,39 @@ export async function DELETE(request: Request) {
     );
   }
 }
+
+const idSchema = z.object({
+  id: z.string().uuid("Invalid video ID format"),
+  // action: z.enum(["upvote"]),
+});
+
+export async function PATCH(request: Request) {
+  try {
+    const body = await request.json();
+    const { id } = idSchema.parse(body);
+
+    const video = await prisma.videos.findUnique({
+      where: { id },
+    });
+
+    if (!video) {
+      return NextResponse.json({ error: "Video not found" }, { status: 404 });
+    }
+
+    const updatedVideo = await prisma.videos.update({
+      where: { id },
+      data: {
+        num_upvotes: (video.num_upvotes ?? 0) + 1,
+      },
+    });
+
+    return NextResponse.json(updatedVideo, { status: 200 });
+  } catch (error: any) {
+    if (error instanceof z.ZodError) {
+      return NextResponse.json({ errors: error.errors }, { status: 400 });
+    }
+
+    console.error("Failed to update video votes:", error);
+    return NextResponse.json({ error: "Failed to update video votes" }, { status: 500 });
+  }
+}
