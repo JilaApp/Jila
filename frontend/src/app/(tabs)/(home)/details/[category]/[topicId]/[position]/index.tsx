@@ -15,6 +15,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Video } from "@/types";
 import { AntDesign, FontAwesome6 } from "@expo/vector-icons";
 
+const EXPO_PUBLIC_API_BASE_URL = process.env.EXPO_PUBLIC_API_BASE_URL;
+
+if (!EXPO_PUBLIC_API_BASE_URL)
+  throw new Error("Missing EXPO_PUBLIC_API_BASE_URL");
+
 export default function Videos() {
   const { position, topicId } = useLocalSearchParams();
   const router = useRouter();
@@ -56,13 +61,20 @@ export default function Videos() {
 
   const handleUpvote = async (videoId: string) => {
     try {
-      const response = await fetch("/api/vote", {
+      const response = await fetch(`${EXPO_PUBLIC_API_BASE_URL}/api/videos`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ id: videoId, action: "upvote" }),
+        body: JSON.stringify({ id: videoId }),
       });
+
+      console.log("Status:", response.status);
+      console.log("Status Text:", response.statusText);
+      console.log("Headers:", response.headers);
+
+      const responseBody = await response.json();
+      console.log("Response Body:", responseBody);
 
       if (!response.ok) {
         throw new Error("Failed to upvote");

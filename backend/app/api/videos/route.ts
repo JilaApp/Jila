@@ -91,15 +91,15 @@ export async function DELETE(request: Request) {
   }
 }
 
-const idSchema = z.object({
-  id: z.string().uuid("Invalid video ID format"),
-  // action: z.enum(["upvote"]),
-});
+// const idSchema = z.object({
+//   id: z.string().uuid("Invalid video ID format"),
+//   // action: z.enum(["upvote"]),
+// });
 
 export async function PATCH(request: Request) {
   try {
     const body = await request.json();
-    const { id } = idSchema.parse(body);
+    const { id } = body;
 
     const video = await prisma.videos.findUnique({
       where: { id },
