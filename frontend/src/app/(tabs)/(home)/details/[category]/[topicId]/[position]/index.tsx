@@ -59,14 +59,14 @@ export default function Videos() {
     }
   };
 
-  const handleUpvote = async (videoId: string) => {
+  const handleVote = async (videoId: string, action: "upvote" | "downvote") => {
     try {
       const response = await fetch(`${EXPO_PUBLIC_API_BASE_URL}/api/videos`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ id: videoId }),
+        body: JSON.stringify({ id: videoId, action }),
       });
 
       console.log("Status:", response.status);
@@ -77,16 +77,47 @@ export default function Videos() {
       console.log("Response Body:", responseBody);
 
       if (!response.ok) {
-        throw new Error("Failed to upvote");
+        throw new Error(`Failed to ${action}`);
       }
 
-      const data = await response.json();
-      Alert.alert("Feedback", "You pressed Thumbs Up!");
+      Alert.alert(
+        "Feedback",
+        `You pressed Thumbs ${action === "upvote" ? "Up" : "Down"}!`
+      );
     } catch (error) {
-      console.error("Error upvoting video:", error);
-      Alert.alert("Error", "Failed to upvote the video.");
+      console.error(`Error ${action} video:`, error);
+      Alert.alert("Error", `Failed to ${action} the video.`);
     }
   };
+
+  // const handleUpvote = async (videoId: string) => {
+  //   try {
+  //     const response = await fetch(`${EXPO_PUBLIC_API_BASE_URL}/api/videos`, {
+  //       method: "PATCH",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ id: videoId }),
+  //     });
+
+  //     console.log("Status:", response.status);
+  //     console.log("Status Text:", response.statusText);
+  //     console.log("Headers:", response.headers);
+
+  //     // const responseBody = await response.json();
+  //     // console.log("Response Body:", responseBody);
+
+  //     if (!response.ok) {
+  //       throw new Error("Failed to upvote");
+  //     }
+
+  //     const data = await response.json();
+  //     Alert.alert("Feedback", "You pressed Thumbs Up!");
+  //   } catch (error) {
+  //     console.error("Error upvoting video:", error);
+  //     Alert.alert("Error", "Failed to upvote the video.");
+  //   }
+  // };
 
   if (!videoData) {
     return (
@@ -134,15 +165,16 @@ export default function Videos() {
       <View className="w-full flex-row justify-between px-20 mb-4">
         <TouchableOpacity
           onPress={async () => {
-            await handleUpvote(videoData.id);
-            Alert.alert("Feedback", "You pressed Thumbs Up!");
+            await handleVote(videoData.id, "upvote");
+            // Alert.alert("Feedback", "You pressed Thumbs Up!");
           }}
         >
           <FontAwesome6 name="thumbs-up" size={28} color="#7E0601" />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={async () => {
-            Alert.alert("Feedback", "You pressed Thumbs Down!");
+            await handleVote(videoData.id, "downvote");
+            // Alert.alert("Feedback", "You pressed Thumbs Down!");
           }}
         >
           <FontAwesome6 name="thumbs-down" size={28} color="#7E0601" />

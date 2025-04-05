@@ -91,15 +91,14 @@ export async function DELETE(request: Request) {
   }
 }
 
-// const idSchema = z.object({
-//   id: z.string().uuid("Invalid video ID format"),
-//   // action: z.enum(["upvote"]),
-// });
-
 export async function PATCH(request: Request) {
   try {
     const body = await request.json();
-    const { id } = body;
+    const { id, action } = body;
+
+    if (!id || !action) {
+      return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
+    }
 
     const video = await prisma.videos.findUnique({
       where: { id },
@@ -109,20 +108,59 @@ export async function PATCH(request: Request) {
       return NextResponse.json({ error: "Video not found" }, { status: 404 });
     }
 
+    let updateData = {};
+    if (action === "upvote") {
+      updateData = { num_upvotes: (video.num_upvotes ?? 0) + 1 };
+    } else if (action === "downvote") {
+      updateData = { num_downvotes: (video.num_downvotes ?? 0) + 1 };
+    } else {
+      return NextResponse.json({ error: "Invalid action" }, { status: 400 });
+    }
+
     const updatedVideo = await prisma.videos.update({
       where: { id },
-      data: {
-        num_upvotes: (video.num_upvotes ?? 0) + 1,
-      },
+      data: updateData,
     });
 
     return NextResponse.json(updatedVideo, { status: 200 });
   } catch (error: any) {
-    if (error instanceof z.ZodError) {
-      return NextResponse.json({ errors: error.errors }, { status: 400 });
-    }
-
     console.error("Failed to update video votes:", error);
     return NextResponse.json({ error: "Failed to update video votes" }, { status: 500 });
   }
 }
+
+// const idSchema = z.object({
+//   id: z.string().uuid("Invalid video ID format"),
+//   // action: z.enum(["upvote"]),
+// });
+
+// export async function PATCH(request: Request) {
+//   try {
+//     const body = await request.json();
+//     const { id } = body;
+
+//     const video = await prisma.videos.findUnique({
+//       where: { id },
+//     });
+
+//     if (!video) {
+//       return NextResponse.json({ error: "Video not found" }, { status: 404 });
+//     }
+
+//     const updatedVideo = await prisma.videos.update({
+//       where: { id },
+//       data: {
+//         num_upvotes: (video.num_upvotes ?? 0) + 1,
+//       },
+//     });
+
+//     return NextResponse.json(updatedVideo, { status: 200 });
+//   } catch (error: any) {
+//     if (error instanceof z.ZodError) {
+//       return NextResponse.json({ errors: error.errors }, { status: 400 });
+//     }
+
+//     console.error("Failed to update video votes:", error);
+//     return NextResponse.json({ error: "Failed to update video votes" }, { status: 500 });
+//   }
+// }
