@@ -16,6 +16,9 @@ type VideoType = {
   topic: string;
   topic_id: string;
   sequence: number;
+  google_drive_link: string; 
+  num_upvotes: number;
+  num_downvotes: number;
 };
 
 export const useTopic = (topicId: string) => {

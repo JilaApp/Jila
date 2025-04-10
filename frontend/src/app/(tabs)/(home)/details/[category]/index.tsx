@@ -15,6 +15,16 @@ import {
   ScrollView,
 } from "react-native";
 
+type TopicType = {
+  [key: string]: string;
+};
+
+type TopicsDataType = {
+  data: TopicType | undefined;
+  isLoading: boolean;
+  error: Error | null;
+};
+
 export default function DetailsScreen() {
   const { category } = useLocalSearchParams();
   const router = useRouter();
@@ -23,7 +33,22 @@ export default function DetailsScreen() {
   const name = iconMap[categoryName]?.name;
   const type = iconMap[categoryName]?.type;
 
-  const { data: topics, isLoading, error } = useVideos(category as Category);
+  // const { data: topics, isLoading, error } = useVideos(category as Category);
+  // let topicsData = { data: [], isLoading: false, error: null };
+  // if (category === "legal") {
+  //   topicsData = useVideos(category as Category) as TopicsDataType;
+  // }
+
+  let topicsData: TopicsDataType = {
+    data: undefined,
+    isLoading: false,
+    error: null,
+  };
+  if (category === "legal") {
+    topicsData = useVideos(category as Category) as TopicsDataType;
+  }
+
+  const { data: topics, isLoading, error } = topicsData;
 
   const capitalize = (str: string) => {
     if (!str) return str;
@@ -85,6 +110,10 @@ export default function DetailsScreen() {
       </View>
     </View>
   );
+
+  if (category != "legal") {
+    return renderContent("No topics found");
+  }
 
   if (
     typeof category !== "string" ||

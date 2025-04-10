@@ -26,6 +26,7 @@ export const useVideos = (category: Category) => {
 
       return responseJson;
     },
-    enabled: !!category,
+    // enabled: !!category,
+    enabled: category === "legal",
   });
 };

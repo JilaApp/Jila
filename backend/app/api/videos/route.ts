@@ -18,7 +18,10 @@ const videoSchema = z.object({
     .regex(/^[a-zA-Z0-9_-]{11}$/, "Invalid YouTube video ID format"),
   topic: z.string().min(1, "Topic is required"),
   topic_id: z.string().optional(),
-  sequence: z.number().optional()
+  sequence: z.number().optional(),
+  google_drive_link: z.string().optional(),
+  num_upvotes: z.number().optional(),
+  num_downvotes: z.number().optional(),
 });
 
 export async function GET() {
@@ -36,10 +39,10 @@ export async function POST(request: Request) {
 
     const parsedData = videoSchema.parse(body);
 
-    const { title, show, type, length, link, topic, topic_id, sequence } = parsedData;
+    const { title, show, type, length, link, topic, topic_id, sequence, google_drive_link, num_upvotes, num_downvotes } = parsedData;
 
     const newVideo = await prisma.videos.create({
-      data: { title, show: show ?? true, type, length, link, topic, topic_id : topic_id ?? uuidv4(), sequence},
+      data: { title, show: show ?? true, type, length, link, topic, topic_id : topic_id ?? uuidv4(), sequence, google_drive_link, num_upvotes, num_downvotes },
     });
 
     return NextResponse.json(newVideo, { status: 201 });
@@ -87,3 +90,77 @@ export async function DELETE(request: Request) {
     );
   }
 }
+ 
+export async function PATCH(request: Request) {
+  try {
+    const body = await request.json();
+    const { id, action } = body;
+
+    if (!id || !action) {
+      return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
+    }
+
+    const video = await prisma.videos.findUnique({
+      where: { id },
+    });
+
+    if (!video) {
+      return NextResponse.json({ error: "Video not found" }, { status: 404 });
+    }
+
+    let updateData = {};
+    if (action === "upvote") {
+      updateData = { num_upvotes: (video.num_upvotes ?? 0) + 1 };
+    } else if (action === "downvote") {
+      updateData = { num_downvotes: (video.num_downvotes ?? 0) + 1 };
+    } else {
+      return NextResponse.json({ error: "Invalid action" }, { status: 400 });
+    }
+
+    const updatedVideo = await prisma.videos.update({
+      where: { id },
+      data: updateData,
+    });
+
+    return NextResponse.json(updatedVideo, { status: 200 });
+  } catch (error: any) {
+    console.error("Failed to update video votes:", error);
+    return NextResponse.json({ error: "Failed to update video votes" }, { status: 500 });
+  }
+}
+
+// const idSchema = z.object({
+//   id: z.string().uuid("Invalid video ID format"),
+//   // action: z.enum(["upvote"]),
+// });
+
+// export async function PATCH(request: Request) {
+//   try {
+//     const body = await request.json();
+//     const { id } = body;
+
+//     const video = await prisma.videos.findUnique({
+//       where: { id },
+//     });
+
+//     if (!video) {
+//       return NextResponse.json({ error: "Video not found" }, { status: 404 });
+//     }
+
+//     const updatedVideo = await prisma.videos.update({
+//       where: { id },
+//       data: {
+//         num_upvotes: (video.num_upvotes ?? 0) + 1,
+//       },
+//     });
+
+//     return NextResponse.json(updatedVideo, { status: 200 });
+//   } catch (error: any) {
+//     if (error instanceof z.ZodError) {
+//       return NextResponse.json({ errors: error.errors }, { status: 400 });
+//     }
+
+//     console.error("Failed to update video votes:", error);
+//     return NextResponse.json({ error: "Failed to update video votes" }, { status: 500 });
+//   }
+// }
