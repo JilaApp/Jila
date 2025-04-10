@@ -24,15 +24,46 @@ const videoSchema = z.object({
   num_downvotes: z.number().optional(),
 });
 
-export async function GET() {
+// export async function GET() {
+//   try {
+//     const videos = await prisma.videos.findMany();
+//     return NextResponse.json(videos);
+//   } catch (error) {
+//     console.error('Error fetching videos:', error);
+//     return NextResponse.json({ error: 'Error fetching videos' }, { status: 500 });
+//   }
+// }
+
+export async function GET(request: Request) {
   try {
-    const videos = await prisma.videos.findMany();
-    return NextResponse.json(videos);
+    const { searchParams } = new URL(request.url);
+    const searchTerm = searchParams.get("searchTerm");
+
+    let videos;
+
+    if (searchTerm && searchTerm.trim() !== "") {
+      videos = await prisma.videos.findMany({
+        where: {
+          topic: {
+            contains: searchTerm,
+            mode: "insensitive",
+          },
+        },
+      });
+    } else {
+      videos = await prisma.videos.findMany();
+    }
+
+    return NextResponse.json(videos, { status: 200 });
   } catch (error) {
-    console.error('Error fetching videos:', error);
-    return NextResponse.json({ error: 'Error fetching videos' }, { status: 500 });
+    console.error("Error fetching videos:", error);
+    return NextResponse.json(
+      { error: "Error fetching videos" },
+      { status: 500 }
+    );
   }
 }
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
@@ -129,38 +160,33 @@ export async function PATCH(request: Request) {
   }
 }
 
-// const idSchema = z.object({
-//   id: z.string().uuid("Invalid video ID format"),
-//   // action: z.enum(["upvote"]),
-// });
-
-// export async function PATCH(request: Request) {
+// export async function GET(request: Request) {
 //   try {
-//     const body = await request.json();
-//     const { id } = body;
+//     const { searchParams } = new URL(request.url);
+//     const searchTerm = searchParams.get("searchTerm");
 
-//     const video = await prisma.videos.findUnique({
-//       where: { id },
-//     });
-
-//     if (!video) {
-//       return NextResponse.json({ error: "Video not found" }, { status: 404 });
+//     if (!searchTerm || searchTerm.trim() === "") {
+//       return NextResponse.json(
+//         { error: "Search term is required" },
+//         { status: 400 }
+//       );
 //     }
 
-//     const updatedVideo = await prisma.videos.update({
-//       where: { id },
-//       data: {
-//         num_upvotes: (video.num_upvotes ?? 0) + 1,
+//     const videos = await prisma.videos.findMany({
+//       where: {
+//         topic: {
+//           contains: searchTerm,
+//           mode: "insensitive",
+//         },
 //       },
 //     });
 
-//     return NextResponse.json(updatedVideo, { status: 200 });
-//   } catch (error: any) {
-//     if (error instanceof z.ZodError) {
-//       return NextResponse.json({ errors: error.errors }, { status: 400 });
-//     }
-
-//     console.error("Failed to update video votes:", error);
-//     return NextResponse.json({ error: "Failed to update video votes" }, { status: 500 });
+//     return NextResponse.json(videos, { status: 200 });
+//   } catch (error) {
+//     console.error("Error fetching videos by search term:", error);
+//     return NextResponse.json(
+//       { error: "Error fetching videos by search term" },
+//       { status: 500 }
+//     );
 //   }
 // }
