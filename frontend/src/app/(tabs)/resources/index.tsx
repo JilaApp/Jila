@@ -1,6 +1,7 @@
 import { View, Text, TouchableOpacity, ScrollView, Dimensions } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
+// Reusable audio entry component
 function AudioEntry({ label, phone, showLineBelow }: {
   label: string;
   phone: string;
@@ -17,11 +18,11 @@ function AudioEntry({ label, phone, showLineBelow }: {
             <View style={{ width: 2, height: 60, backgroundColor: '#7E0601', marginTop: 2 }} />
           )}
         </View>
-        <View className="justify-center">
-          <Text className="text-3xl font-bold text-gray-800">{label}</Text>
+        <View className="justify-center flex-1">
+          <Text className="text-lg font-bold text-gray-800">{label}</Text>
         </View>
       </View>
-      <Text className="text-lg font-bold text-gray-800 ml-10">{phone}</Text>
+      <Text className="text-base font-medium text-gray-800 ml-10">{phone}</Text>
     </View>
   );
 }
@@ -49,39 +50,53 @@ export default function Resources() {
             </TouchableOpacity>
           </View>
 
-          {/* White Card with Vertical Scroll */}
+          {/* White Scrollable Card */}
           <View className="flex-1 bg-white rounded-2xl p-1 m-1 overflow-hidden">
             <ScrollView
               showsVerticalScrollIndicator={false}
               contentContainerStyle={{ padding: 24, paddingBottom: 48 }}
             >
-              {/* Emergency 911 Entry */}
-              <View className="items-center mt-6">
-                <View className="flex-row space-x-2">
-                  <View className="items-center">
-                    <TouchableOpacity className="w-8 h-8 rounded-full bg-[#7E0601] items-center justify-center">
-                      <AntDesign name="sound" size={20} color="white" />
-                    </TouchableOpacity>
-                    <View style={{ width: 2, height: 60, backgroundColor: '#7E0601', marginTop: 2 }} />
-                  </View>
-                  <Text className="text-2xl font-bold text-gray-800 text-center">
-                    Immediate Assistance Police, Fire, Medical Emergencies
-                  </Text>
-                </View>
-                <View className="mt-4 items-center">
-                  <Text className="text-xl font-bold text-gray-800">Número</Text>
-                  <Text className="text-xl font-bold text-gray-800">911</Text>
-                </View>
-              </View>
+              {/* Emergency Services */}
+              <AudioEntry
+                label="Police, Fire, Medical Emergencies"
+                phone="Dial 911 for life-threatening situations"
+                showLineBelow
+              />
 
-              {/* Hospital Entries */}
-              <AudioEntry label="Carle Hospital" phone="1. (217) 383-3311" showLineBelow />
-              <AudioEntry label="OSF Medical Center" phone="• 217-337-2000" />
+              {/* Shelters & Housing */}
+              <AudioEntry
+                label="Strides Low Barrier Shelter (70 E Washington, Champaign)"
+                phone="(217) 403-6150 — 50 beds for men, 14 for women. No sobriety/background check required."
+                showLineBelow
+              />
+              <AudioEntry
+                label="C-U at Home (309 S Neil St, Champaign)"
+                phone="(217) 819-4569 — Mid-barrier program, shelter + case management (up to 18 months)"
+                showLineBelow
+              />
+              <AudioEntry
+                label="Emergency Shelter for Families"
+                phone="(217) 328-3313 — Up to 30-day shelter for families with children under 18"
+                showLineBelow
+              />
+
+              {/* Child Crisis Support */}
+              <AudioEntry
+                label="Crisis Nursery"
+                phone="Call: (217) 337-2730 | Text: (217) 636-4221 — Emergency childcare, support, diapers, formula"
+                showLineBelow
+              />
+
+              {/* Transportation */}
+              <AudioEntry
+                label="MTD – Champaign-Urbana Mass Transit"
+                phone="(217) 384-8188 — Public transit info and support (cumtd.com)"
+              />
             </ScrollView>
           </View>
         </View>
 
-        {/* Page 2: Food Info */}
+        {/* Page 2: Food */}
         <View style={{ width: screenWidth, padding: 16 }}>
           <View className="flex-row items-center justify-center mb-4 relative">
             <Text className="text-3xl font-bold text-[#7E0601]">Food</Text>
@@ -90,33 +105,25 @@ export default function Resources() {
             </TouchableOpacity>
           </View>
 
-          {/* White Card with Vertical Scroll */}
+          {/* White Scrollable Card */}
           <View className="flex-1 bg-white rounded-2xl p-1 m-1 overflow-hidden">
             <ScrollView
               showsVerticalScrollIndicator={false}
               contentContainerStyle={{ padding: 24, paddingBottom: 48 }}
             >
-              {/* General Food Info */}
-              <View className="items-center mt-6">
-                <View className="flex-row space-x-2">
-                  <View className="items-center">
-                    <TouchableOpacity className="w-8 h-8 rounded-full bg-[#7E0601] items-center justify-center">
-                      <AntDesign name="sound" size={20} color="white" />
-                    </TouchableOpacity>
-                    <View style={{ width: 2, height: 60, backgroundColor: '#7E0601', marginTop: 2 }} />
-                  </View>
-                  <Text className="text-2xl font-bold text-gray-800 text-center">
-                    Local Food Resources & Assistance
-                  </Text>
-                </View>
-                <View className="mt-4 items-center">
-                  <Text className="text-xl font-bold text-gray-800">Contact</Text>
-                  <Text className="text-xl font-bold text-gray-800">123-456-7890</Text>
-                </View>
-              </View>
-
-              {/* Specific Food Resource */}
-              <AudioEntry label="Local Diner" phone="1. (123) 456-7890" />
+              <AudioEntry
+                label="Daily Bread Soup Kitchen (116 N. First St, Champaign)"
+                phone="(217) 356-7687 — Hot meals daily, 11:00 AM to 12:30 PM (dailybreadsoupkitchen.com)"
+                showLineBelow
+              />
+              <AudioEntry
+                label="Canteen Run (Mobile Truck)"
+                phone="(217) 369-9344 — Mon/Tue/Thu 6:30–8:30 PM — food, drinks, blankets (cucanteenrun.org)"
+                showLineBelow
+              />
+              <AudioEntry
+                label="Jubilee Café (805 S. Sixth St, Champaign)"
+              />
             </ScrollView>
           </View>
         </View>
