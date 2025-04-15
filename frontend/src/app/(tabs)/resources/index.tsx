@@ -1,7 +1,6 @@
 import { View, Text, TouchableOpacity, ScrollView, Dimensions } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
-// Reusable audio entry component
 function AudioEntry({ label, phone, showLineBelow }: {
   label: string;
   phone: string;
@@ -34,7 +33,7 @@ export default function Resources() {
     <View className="flex-1 bg-gray-100">
       {/* Global Header */}
       <View className="flex-row items-center justify-center mb-4 relative p-4">
-        <Text className="absolute left-0 text-4xl font-bold text-[#7E0601]">  Recursos</Text>
+        <Text className="absolute left-0 text-4xl font-bold text-[#7E0601]">Recursos</Text>
         <TouchableOpacity className="w-8 h-8 rounded-full bg-[#7E0601] items-center justify-center">
           <AntDesign name="sound" size={20} color="white" />
         </TouchableOpacity>
@@ -50,20 +49,33 @@ export default function Resources() {
             </TouchableOpacity>
           </View>
 
-          {/* White Scrollable Card */}
           <View className="flex-1 bg-white rounded-2xl p-1 m-1 overflow-hidden">
             <ScrollView
               showsVerticalScrollIndicator={false}
               contentContainerStyle={{ padding: 24, paddingBottom: 48 }}
             >
-              {/* Emergency Services */}
               <AudioEntry
                 label="Police, Fire, Medical Emergencies"
                 phone="Dial 911 for life-threatening situations"
                 showLineBelow
               />
+            </ScrollView>
+          </View>
+        </View>
 
-              {/* Shelters & Housing */}
+        <View style={{ width: screenWidth, padding: 16 }}>
+          <View className="flex-row items-center justify-center mb-4 relative">
+            <Text className="text-3xl font-bold text-[#7E0601]">Shelters</Text>
+            <TouchableOpacity className="absolute left-0 w-8 h-8 rounded-full bg-[#7E0601] items-center justify-center">
+              <AntDesign name="sound" size={20} color="white" />
+            </TouchableOpacity>
+          </View>
+
+          <View className="flex-1 bg-white rounded-2xl p-1 m-1 overflow-hidden">
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={{ padding: 24, paddingBottom: 48 }}
+            >
               <AudioEntry
                 label="Strides Low Barrier Shelter (70 E Washington, Champaign)"
                 phone="(217) 403-6150 — 50 beds for men, 14 for women. No sobriety/background check required."
@@ -79,24 +91,16 @@ export default function Resources() {
                 phone="(217) 328-3313 — Up to 30-day shelter for families with children under 18"
                 showLineBelow
               />
-
-              {/* Child Crisis Support */}
               <AudioEntry
                 label="Crisis Nursery"
                 phone="Call: (217) 337-2730 | Text: (217) 636-4221 — Emergency childcare, support, diapers, formula"
                 showLineBelow
               />
-
-              {/* Transportation */}
-              <AudioEntry
-                label="MTD – Champaign-Urbana Mass Transit"
-                phone="(217) 384-8188 — Public transit info and support (cumtd.com)"
-              />
             </ScrollView>
           </View>
         </View>
 
-        {/* Page 2: Food */}
+        {/* Page 3: Food */}
         <View style={{ width: screenWidth, padding: 16 }}>
           <View className="flex-row items-center justify-center mb-4 relative">
             <Text className="text-3xl font-bold text-[#7E0601]">Food</Text>
@@ -105,7 +109,6 @@ export default function Resources() {
             </TouchableOpacity>
           </View>
 
-          {/* White Scrollable Card */}
           <View className="flex-1 bg-white rounded-2xl p-1 m-1 overflow-hidden">
             <ScrollView
               showsVerticalScrollIndicator={false}
@@ -123,6 +126,27 @@ export default function Resources() {
               />
               <AudioEntry
                 label="Jubilee Café (805 S. Sixth St, Champaign)"
+              />
+            </ScrollView>
+          </View>
+        </View>
+
+        <View style={{ width: screenWidth, padding: 16 }}>
+          <View className="flex-row items-center justify-center mb-4 relative">
+            <Text className="text-3xl font-bold text-[#7E0601]">Transportation</Text>
+            <TouchableOpacity className="absolute left-0 w-8 h-8 rounded-full bg-[#7E0601] items-center justify-center">
+              <AntDesign name="sound" size={20} color="white" />
+            </TouchableOpacity>
+          </View>
+
+          <View className="flex-1 bg-white rounded-2xl p-1 m-1 overflow-hidden">
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={{ padding: 24, paddingBottom: 48 }}
+            >
+              <AudioEntry
+                label="MTD – Champaign-Urbana Mass Transit"
+                phone="(217) 384-8188 — Public transit info and support"
               />
             </ScrollView>
           </View>
