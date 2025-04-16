@@ -40,7 +40,7 @@ export default function Videos() {
           console.log(parsedVideos);
         }
       } catch (error) {
-        console.error("Shouri's here", error);
+        console.error("Failed to retrieve videos from local storage", error);
       }
     };
 

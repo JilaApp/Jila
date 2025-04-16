@@ -1,7 +1,17 @@
-import { View, Text, TouchableOpacity, ScrollView, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  Dimensions,
+} from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
-function AudioEntry({ label, phone, showLineBelow }: {
+function AudioEntry({
+  label,
+  phone,
+  showLineBelow,
+}: {
   label: string;
   phone: string;
   showLineBelow?: boolean;
@@ -13,9 +23,16 @@ function AudioEntry({ label, phone, showLineBelow }: {
           <TouchableOpacity className="w-8 h-8 rounded-full bg-[#7E0601] items-center justify-center">
             <AntDesign name="sound" size={20} color="white" />
           </TouchableOpacity>
-          {showLineBelow && (
-            <View style={{ width: 2, height: 60, backgroundColor: '#7E0601', marginTop: 2 }} />
-          )}
+          {/* {showLineBelow && (
+            <View
+              style={{
+                width: 2,
+                height: 60,
+                backgroundColor: "#7E0601",
+                marginTop: 2,
+              }}
+            />
+          )} */}
         </View>
         <View className="justify-center flex-1">
           <Text className="text-lg font-bold text-gray-800">{label}</Text>
@@ -33,17 +50,24 @@ export default function Resources() {
     <View className="flex-1 bg-gray-100">
       {/* Global Header */}
       <View className="flex-row items-center justify-center mb-4 relative p-4">
-        <Text className="absolute left-0 text-4xl font-bold text-[#7E0601]">Recursos</Text>
+        <Text className="absolute left-0 text-4xl font-bold text-[#7E0601]">
+          Recursos
+        </Text>
         <TouchableOpacity className="w-8 h-8 rounded-full bg-[#7E0601] items-center justify-center">
           <AntDesign name="sound" size={20} color="white" />
         </TouchableOpacity>
       </View>
 
-      <ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator={false}>
-        {/* Page 1: Emergencia */}
+      <ScrollView
+        horizontal
+        pagingEnabled
+        showsHorizontalScrollIndicator={false}
+      >
         <View style={{ width: screenWidth, padding: 16 }}>
           <View className="flex-row items-center justify-center mb-4 relative">
-            <Text className="text-3xl font-bold text-[#7E0601]">Emergencia</Text>
+            <Text className="text-3xl font-bold text-[#7E0601]">
+              Emergencia
+            </Text>
             <TouchableOpacity className="absolute left-0 w-8 h-8 rounded-full bg-[#7E0601] items-center justify-center">
               <AntDesign name="sound" size={20} color="white" />
             </TouchableOpacity>
@@ -100,7 +124,6 @@ export default function Resources() {
           </View>
         </View>
 
-        {/* Page 3: Food */}
         <View style={{ width: screenWidth, padding: 16 }}>
           <View className="flex-row items-center justify-center mb-4 relative">
             <Text className="text-3xl font-bold text-[#7E0601]">Food</Text>
@@ -126,6 +149,7 @@ export default function Resources() {
               />
               <AudioEntry
                 label="Jubilee Café (805 S. Sixth St, Champaign)"
+                phone="(217) 344-5091 — Mondays 5:00 to 6:30 pm"
               />
             </ScrollView>
           </View>
@@ -133,7 +157,9 @@ export default function Resources() {
 
         <View style={{ width: screenWidth, padding: 16 }}>
           <View className="flex-row items-center justify-center mb-4 relative">
-            <Text className="text-3xl font-bold text-[#7E0601]">Transportation</Text>
+            <Text className="text-3xl font-bold text-[#7E0601]">
+              Transportation
+            </Text>
             <TouchableOpacity className="absolute left-0 w-8 h-8 rounded-full bg-[#7E0601] items-center justify-center">
               <AntDesign name="sound" size={20} color="white" />
             </TouchableOpacity>
