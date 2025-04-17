@@ -58,14 +58,14 @@ export default function Resources() {
       </View>
 
       <TouchableOpacity
-        onPress={() => handleSearch}
-        className="bg-blue-500 rounded-full py-2 px-4 items-center"
+        onPress={() => handleSearch(searchTerm)}
+        className="bg-[#7E0601] rounded-full py-2 px-4 items-center"
       >
         <Text className="text-white font-bold">Search</Text>
       </TouchableOpacity>
 
-      <Text className="text-[#858597] mb-6">{videos?.length} Videos</Text>
-      <ScrollView showsVerticalScrollIndicator={false} className="mb-60">
+      <Text className="text-[#858597] mt-2 mb-4">{videos?.length} Videos</Text>
+      <ScrollView showsVerticalScrollIndicator={false} className="mb-2">
         {videos?.map(({ id, length, title }, index) => (
           <View key={id} className="mb-4 flex-row justify-between items-center">
             <View className="flex-row space-x-2 items-center">

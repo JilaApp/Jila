@@ -1,6 +1,6 @@
 import { Tabs } from "expo-router";
 import { View } from "react-native";
-import { Entypo, FontAwesome5, Ionicons } from "@expo/vector-icons";
+import { Entypo, FontAwesome5, Ionicons, AntDesign } from "@expo/vector-icons";
 
 export default function TabLayout() {
   return (
@@ -86,6 +86,31 @@ export default function TabLayout() {
           },
           headerTitle: () => (
             <FontAwesome5 name="book-open" size={48} color={"white"} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="search/index"
+        options={{
+          tabBarShowLabel: false,
+          tabBarIcon: ({ focused }) => {
+            return (
+              <View
+                className={`w-12 h-12 rounded-full justify-center items-center ${
+                  focused ? "bg-white" : "bg-transparent"
+                }`}
+              >
+                <AntDesign
+                  name="search1"
+                  size={27}
+                  color={focused ? "#7E0601" : "white"}
+                />
+              </View>
+            );
+          },
+          headerTitle: () => (
+            // <FontAwesome5 name="book-open" size={48} color={"white"} />
+            <AntDesign name="search1" size={48} color={"white"} />
           ),
         }}
       />
