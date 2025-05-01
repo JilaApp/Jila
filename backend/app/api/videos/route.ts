@@ -1,6 +1,14 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { VideoType } from "@prisma/client";
+// import { VideoType } from "@prisma/client";
+export enum VideoType {
+  PROFESSIONAL_DEVELOPMENT = 'PROFESSIONAL_DEVELOPMENT',
+  MEDICAL = 'MEDICAL',
+  TRANSPORTATION = 'TRANSPORTATION',
+  LEGAL = 'LEGAL',
+  OTHER = 'OTHER',
+}
+
 import { z } from "zod";
 import { v4 as uuidv4 } from "uuid";
 
@@ -56,9 +64,15 @@ export async function POST(request: Request) {
 }
 
 export async function DELETE(request: Request) {
+  // try {
+  //   // Parse the request body to get the video id
+  //   const { id } = await request.json();
+  
   try {
-    // Parse the request body to get the video id
-    const { id } = await request.json();
+    // Pull the `id` out of ?id=... instead of expecting JSON
+    const url = new URL(request.url);
+    const id = url.searchParams.get('id');
+
 
     if (!id) {
       return NextResponse.json(
