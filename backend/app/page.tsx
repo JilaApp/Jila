@@ -15,6 +15,8 @@ export default function Home() {
   const [link, setLink] = useState('');
   const [type, setType] = useState('OTHER');
   const [length, setLength] = useState('');
+  const [topic, setTopic] = useState('');
+  const [googleDriveLink, setGoogleDriveLink] = useState('');
   const [message, setMessage] = useState('');
 
   useEffect(() => {
@@ -50,12 +52,32 @@ export default function Home() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ title, link, type, length, show: true }),
+        // body: JSON.stringify({ title, link, type, length, show: true }),
+        body: JSON.stringify({
+          title,
+          link,
+          type,
+          length,
+          show: true,
+          topic,                               // added topic field
+          google_drive_link: googleDriveLink,  // new field to enable video downloading
+        }),
       });
 
+      // parse & log the JSON so you see exactly what came back
+      const data = await response.json();
+      console.log('POST /api/videos →', response.status, data);
+
+
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to add video');
+        // const errorData = await response.json();
+        // throw new Error(errorData.error || 'Failed to add video');
+        
+        // show errors in UI
+        if (data.errors) {
+          throw new Error(data.errors.map((e: any) => e.message).join('; '));
+        }
+        throw new Error(data.error || `Failed to add video (${response.status})`);
       }
 
       setMessage('Video added successfully!');
@@ -106,6 +128,22 @@ export default function Home() {
             <form onSubmit={handleAddVideo} className="flex flex-col space-y-4 w-full">
               <input
                 type="text"
+                placeholder="Google Drive link (ID only, e.g., 1CWIsgQSc_NFdngZ8D-gA8uXiVJc9wcT0)"
+                value={googleDriveLink}
+                onChange={e => setGoogleDriveLink(e.target.value)}
+                className="p-2 border rounded w-full"
+                // add `required` if you made it required in Zod
+              />
+              <input
+                type="text"
+                placeholder="Topic"
+                value={topic}
+                onChange={e => setTopic(e.target.value)}
+                required
+                className="p-2 border rounded w-full"
+              />
+              <input
+                type="text"
                 placeholder="Title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
@@ -114,7 +152,7 @@ export default function Home() {
               />
               <input
                 type="text"
-                placeholder="YouTube Link"
+                placeholder="YouTube Link (ID only, e.g., VLeEX489tXE)"
                 value={link}
                 onChange={(e) => setLink(e.target.value)}
                 required
