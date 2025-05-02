@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 // import { VideoType } from "@prisma/client";
-export enum VideoType {
+enum VideoType {
   PROFESSIONAL_DEVELOPMENT = 'PROFESSIONAL_DEVELOPMENT',
   MEDICAL = 'MEDICAL',
   TRANSPORTATION = 'TRANSPORTATION',
