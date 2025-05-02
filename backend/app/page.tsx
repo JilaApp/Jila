@@ -16,6 +16,7 @@ export default function Home() {
   const [type, setType] = useState('OTHER');
   const [length, setLength] = useState('');
   const [topic, setTopic] = useState('');
+  const [googleDriveLink, setGoogleDriveLink] = useState('');
   const [message, setMessage] = useState('');
 
   useEffect(() => {
@@ -58,7 +59,8 @@ export default function Home() {
           type,
           length,
           show: true,
-          topic,           // send the topic
+          topic,                               // added topic field
+          google_drive_link: googleDriveLink,  // new field to enable video downloading
         }),
       });
 
@@ -126,6 +128,14 @@ export default function Home() {
             <form onSubmit={handleAddVideo} className="flex flex-col space-y-4 w-full">
               <input
                 type="text"
+                placeholder="Google Drive link (ID only, e.g., 1CWIsgQSc_NFdngZ8D-gA8uXiVJc9wcT0)"
+                value={googleDriveLink}
+                onChange={e => setGoogleDriveLink(e.target.value)}
+                className="p-2 border rounded w-full"
+                // add `required` if you made it required in Zod
+              />
+              <input
+                type="text"
                 placeholder="Topic"
                 value={topic}
                 onChange={e => setTopic(e.target.value)}
@@ -142,7 +152,7 @@ export default function Home() {
               />
               <input
                 type="text"
-                placeholder="YouTube Link"
+                placeholder="YouTube Link (ID only, e.g., VLeEX489tXE)"
                 value={link}
                 onChange={(e) => setLink(e.target.value)}
                 required
