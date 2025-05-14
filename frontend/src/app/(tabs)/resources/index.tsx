@@ -20,9 +20,9 @@ function AudioEntry({
     <View className="mt-6">
       <View className="flex-row space-x-2">
         <View className="items-center">
-          <TouchableOpacity className="w-8 h-8 rounded-full bg-[#7E0601] items-center justify-center">
+          {/* <TouchableOpacity className="w-8 h-8 rounded-full bg-[#7E0601] items-center justify-center">
             <AntDesign name="sound" size={20} color="white" />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           {/* {showLineBelow && (
             <View
               style={{
@@ -50,12 +50,10 @@ export default function Resources() {
     <View className="flex-1 bg-gray-100">
       {/* Global Header */}
       <View className="flex-row items-center justify-center mb-4 relative p-4">
-        <Text className="absolute left-0 text-4xl font-bold text-[#7E0601]">
-          Recursos
-        </Text>
-        <TouchableOpacity className="w-8 h-8 rounded-full bg-[#7E0601] items-center justify-center">
+        <Text className="text-4xl font-bold text-[#7E0601]">Recursos</Text>
+        {/* <TouchableOpacity className="w-8 h-8 rounded-full bg-[#7E0601] items-center justify-center">
           <AntDesign name="sound" size={20} color="white" />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
       <ScrollView
@@ -68,9 +66,9 @@ export default function Resources() {
             <Text className="text-3xl font-bold text-[#7E0601]">
               Emergencia
             </Text>
-            <TouchableOpacity className="absolute left-0 w-8 h-8 rounded-full bg-[#7E0601] items-center justify-center">
+            {/* <TouchableOpacity className="absolute left-0 w-8 h-8 rounded-full bg-[#7E0601] items-center justify-center">
               <AntDesign name="sound" size={20} color="white" />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
 
           <View className="flex-1 bg-white rounded-2xl p-1 m-1 overflow-hidden">
@@ -90,9 +88,9 @@ export default function Resources() {
         <View style={{ width: screenWidth, padding: 16 }}>
           <View className="flex-row items-center justify-center mb-4 relative">
             <Text className="text-3xl font-bold text-[#7E0601]">Shelters</Text>
-            <TouchableOpacity className="absolute left-0 w-8 h-8 rounded-full bg-[#7E0601] items-center justify-center">
+            {/* <TouchableOpacity className="absolute left-0 w-8 h-8 rounded-full bg-[#7E0601] items-center justify-center">
               <AntDesign name="sound" size={20} color="white" />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
 
           <View className="flex-1 bg-white rounded-2xl p-1 m-1 overflow-hidden">
@@ -127,9 +125,9 @@ export default function Resources() {
         <View style={{ width: screenWidth, padding: 16 }}>
           <View className="flex-row items-center justify-center mb-4 relative">
             <Text className="text-3xl font-bold text-[#7E0601]">Food</Text>
-            <TouchableOpacity className="absolute left-0 w-8 h-8 rounded-full bg-[#7E0601] items-center justify-center">
+            {/* <TouchableOpacity className="absolute left-0 w-8 h-8 rounded-full bg-[#7E0601] items-center justify-center">
               <AntDesign name="sound" size={20} color="white" />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
 
           <View className="flex-1 bg-white rounded-2xl p-1 m-1 overflow-hidden">
@@ -160,9 +158,9 @@ export default function Resources() {
             <Text className="text-3xl font-bold text-[#7E0601]">
               Transportation
             </Text>
-            <TouchableOpacity className="absolute left-0 w-8 h-8 rounded-full bg-[#7E0601] items-center justify-center">
+            {/* <TouchableOpacity className="absolute left-0 w-8 h-8 rounded-full bg-[#7E0601] items-center justify-center">
               <AntDesign name="sound" size={20} color="white" />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
 
           <View className="flex-1 bg-white rounded-2xl p-1 m-1 overflow-hidden">

@@ -155,17 +155,17 @@ export default function DetailsScreen() {
           <Text className="text-2xl font-bold">
             {capitalize(iconMap[category as Category].label)} Videos
           </Text>
-          <TouchableOpacity className="w-8 h-8 rounded-full bg-[#7E0601] items-center justify-center">
+          {/* <TouchableOpacity className="w-8 h-8 rounded-full bg-[#7E0601] items-center justify-center">
             <AntDesign name={"sound"} size={20} color={"white"} />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
         <ScrollView showsVerticalScrollIndicator={false} className="mb-20">
           {Object.entries(topics).map(([topic, id]) => (
             <View key={id} className="mb-4 flex-row justify-between">
               <View className="flex-row space-x-2 items-center">
-                <TouchableOpacity className="w-10 h-10 rounded-full bg-[#7E0601] items-center justify-center">
+                {/* <TouchableOpacity className="w-10 h-10 rounded-full bg-[#7E0601] items-center justify-center">
                   <AntDesign name={"sound"} size={28} color={"white"} />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 <Text className="text-lg">{topic}</Text>
               </View>
               <TouchableOpacity

@@ -28,9 +28,9 @@ export default function HomeScreen() {
     <View className="flex-1 bg-[#E4E4E4] p-4">
       <View className="flex-row items-center justify-between mb-4">
         <Text className="text-3xl font-bold text-[#7E0601]">All Topics</Text>
-        <TouchableOpacity className="w-8 h-8 rounded-full bg-[#7E0601] items-center justify-center">
+        {/* <TouchableOpacity className="w-8 h-8 rounded-full bg-[#7E0601] items-center justify-center">
           <AntDesign name={"sound"} size={20} color={"white"} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
       <View className="bg-[#D9D9D9] p-6 rounded">

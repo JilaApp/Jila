@@ -54,9 +54,9 @@ export default function TopicScreen() {
       <View className="p-6">
         <View className="flex-row space-x-2">
           <Text className="text-2xl font-bold">{videos?.[0].topic}</Text>
-          <TouchableOpacity className="w-8 h-8 rounded-full bg-[#7E0601] items-center justify-center -ml-8">
+          {/* <TouchableOpacity className="w-8 h-8 rounded-full bg-[#7E0601] items-center justify-center -ml-8">
             <AntDesign name={"sound"} size={20} color={"white"} />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
         <Text className="text-[#858597] mb-6">{videos?.length} Videos</Text>
         <ScrollView showsVerticalScrollIndicator={false} className="mb-60">
@@ -68,9 +68,9 @@ export default function TopicScreen() {
                 className="mb-4 flex-row justify-between items-center"
               >
                 <View className="flex-row space-x-2 items-center">
-                  <TouchableOpacity className="w-10 h-10 rounded-full bg-[#7E0601] items-center justify-center">
+                  {/* <TouchableOpacity className="w-10 h-10 rounded-full bg-[#7E0601] items-center justify-center">
                     <AntDesign name={"sound"} size={28} color={"white"} />
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
                   <View>
                     <Text className="text-lg">{title}</Text>
                     <Text className="text-[#7E0601]">{length} mins</Text>

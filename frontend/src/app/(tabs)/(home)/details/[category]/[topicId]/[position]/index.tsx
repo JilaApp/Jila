@@ -82,7 +82,9 @@ export default function Videos() {
 
       Alert.alert(
         "Feedback",
-        `You pressed Thumbs ${action === "upvote" ? "Up" : "Down"}!`
+        `You pressed Thumbs ${
+          action === "upvote" ? "Up" : "Down"
+        }, we appreciate your feedback`
       );
     } catch (error) {
       console.error(`Error ${action} video:`, error);
