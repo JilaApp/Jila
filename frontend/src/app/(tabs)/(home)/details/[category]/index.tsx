@@ -44,9 +44,10 @@ export default function DetailsScreen() {
     isLoading: false,
     error: null,
   };
-  if (category === "legal") {
-    topicsData = useVideos(category as Category) as TopicsDataType;
-  }
+  // if (category === "legal") {
+  //   topicsData = useVideos(category as Category) as TopicsDataType;
+  // }
+  topicsData = useVideos(category as Category) as TopicsDataType;
 
   const { data: topics, isLoading, error } = topicsData;
 
@@ -111,9 +112,9 @@ export default function DetailsScreen() {
     </View>
   );
 
-  if (category != "legal") {
-    return renderContent("No topics found");
-  }
+  // if (category != "legal") {
+  //   return renderContent("No topics found");
+  // }
 
   if (
     typeof category !== "string" ||
