@@ -98,9 +98,9 @@ export default function DetailsScreen() {
             {capitalize(iconMap[category as Category].label)} Videos
           </Text>
         )}
-        <TouchableOpacity className="w-8 h-8 rounded-full bg-[#7E0601] items-center justify-center">
+        {/* <TouchableOpacity className="w-8 h-8 rounded-full bg-[#7E0601] items-center justify-center">
           <AntDesign name={"sound"} size={20} color={"white"} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
       <View className="flex-1 justify-center items-center">
         {isLoading ? (
