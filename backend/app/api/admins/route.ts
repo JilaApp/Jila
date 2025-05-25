@@ -2,11 +2,21 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
 
-export async function POST(request: Request) {
+  export async function POST(request: Request) {
     try {
       const body = await request.json();
-    
       const {email} = body;
+
+      const existingUser = await prisma.admins.findFirst({
+        where: { email: email },
+      });
+  
+      if (existingUser) {
+        return NextResponse.json(
+          { error: "Email already exists" },
+          { status: 400 }
+        );
+      }
 
       const newUser = await prisma.admins.create({
         data: {email : email},
