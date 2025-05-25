@@ -97,6 +97,32 @@ export default function Home() {
     }
   };
 
+  const signUserUpTemporaryFix = async () => {
+    const email = window.prompt("Please enter your email:");
+    if (email) {
+      try {
+        const response = await fetch("/api/admins", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        });
+
+        if (response.ok) {
+          console.log("Email successfully sent to the server.");
+        } else {
+          console.error(
+            "Failed to send email. Server responded with:",
+            response.status
+          );
+        }
+      } catch (error) {
+        console.error("An error occurred while sending the email:", error);
+      }
+    }
+  };
+
   if (!isLoaded || loadingAuth) return <p>Loading...</p>;
 
   return (
@@ -113,7 +139,10 @@ export default function Home() {
             </button>
           </SignInButton>
           <SignUpButton>
-            <button className="bg-green-500 text-white px-4 py-2 rounded">
+            <button
+              onClick={signUserUpTemporaryFix}
+              className="bg-green-500 text-white px-4 py-2 rounded"
+            >
               Sign Up
             </button>
           </SignUpButton>
