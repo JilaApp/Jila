@@ -140,7 +140,7 @@ export default function Home() {
           </SignInButton>
           <SignUpButton>
             <button
-              onClick={signUserUpTemporaryFix}
+              // onClick={signUserUpTemporaryFix}
               className="bg-green-500 text-white px-4 py-2 rounded"
             >
               Sign Up
