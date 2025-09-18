@@ -14,10 +14,6 @@ import { AntDesign, FontAwesome6 } from "@expo/vector-icons";
 
 export default function help() {
   return (
-    // <View className="flex-1 bg-gray-100 justify-center items-center">
-    //   <Text className="text-black">Hello, this is the help page</Text>
-    // </View>
-
     <View className="flex-1 h-full bg-[#E4E4E4] justify-center items-center py-4">
       {/* Header */}
       <View className="flex flex-row mb-5">
