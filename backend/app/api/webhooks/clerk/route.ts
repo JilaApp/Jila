@@ -62,6 +62,7 @@ export async function POST(req: Request) {
       await prisma.admins.create({ // 👈 Adjust 'db.admins.create' to match your ORM/client
         data: {
           email: email,
+          uid: id,
         },
       });
       console.log(`User ${email} was successfully added to the database.`);
