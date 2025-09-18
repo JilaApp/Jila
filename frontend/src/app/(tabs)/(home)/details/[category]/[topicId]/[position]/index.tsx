@@ -90,35 +90,6 @@ export default function Videos() {
     }
   };
 
-  // const handleUpvote = async (videoId: string) => {
-  //   try {
-  //     const response = await fetch(`${EXPO_PUBLIC_API_BASE_URL}/api/videos`, {
-  //       method: "PATCH",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({ id: videoId }),
-  //     });
-
-  //     console.log("Status:", response.status);
-  //     console.log("Status Text:", response.statusText);
-  //     console.log("Headers:", response.headers);
-
-  //     // const responseBody = await response.json();
-  //     // console.log("Response Body:", responseBody);
-
-  //     if (!response.ok) {
-  //       throw new Error("Failed to upvote");
-  //     }
-
-  //     const data = await response.json();
-  //     Alert.alert("Feedback", "You pressed Thumbs Up!");
-  //   } catch (error) {
-  //     console.error("Error upvoting video:", error);
-  //     Alert.alert("Error", "Failed to upvote the video.");
-  //   }
-  // };
-
   if (!videoData) {
     return (
       <View className="flex-1">
@@ -150,8 +121,6 @@ export default function Videos() {
             console.log(videoData.num_downvotes);
           }}
         >
-          {/* `https://drive.google.com/file/d/${videoData.google_drive_link}/view` */}
-          {/* `https://drive.google.com/file/d/1ZGh9S8ybWrXW8Arc2GxH0UIphHuzLsTs/view` */}
           <AntDesign
             name="download"
             size={38}
@@ -166,7 +135,6 @@ export default function Videos() {
         <TouchableOpacity
           onPress={async () => {
             await handleVote(videoData.id, "upvote");
-            // Alert.alert("Feedback", "You pressed Thumbs Up!");
           }}
         >
           <FontAwesome6 name="thumbs-up" size={28} color="#7E0601" />
@@ -174,7 +142,6 @@ export default function Videos() {
         <TouchableOpacity
           onPress={async () => {
             await handleVote(videoData.id, "downvote");
-            // Alert.alert("Feedback", "You pressed Thumbs Down!");
           }}
         >
           <FontAwesome6 name="thumbs-down" size={28} color="#7E0601" />
