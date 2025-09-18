@@ -33,20 +33,11 @@ export default function DetailsScreen() {
   const name = iconMap[categoryName]?.name;
   const type = iconMap[categoryName]?.type;
 
-  // const { data: topics, isLoading, error } = useVideos(category as Category);
-  // let topicsData = { data: [], isLoading: false, error: null };
-  // if (category === "legal") {
-  //   topicsData = useVideos(category as Category) as TopicsDataType;
-  // }
-
   let topicsData: TopicsDataType = {
     data: undefined,
     isLoading: false,
     error: null,
   };
-  // if (category === "legal") {
-  //   topicsData = useVideos(category as Category) as TopicsDataType;
-  // }
   topicsData = useVideos(category as Category) as TopicsDataType;
 
   const { data: topics, isLoading, error } = topicsData;
@@ -111,10 +102,6 @@ export default function DetailsScreen() {
       </View>
     </View>
   );
-
-  // if (category != "legal") {
-  //   return renderContent("No topics found");
-  // }
 
   if (
     typeof category !== "string" ||
