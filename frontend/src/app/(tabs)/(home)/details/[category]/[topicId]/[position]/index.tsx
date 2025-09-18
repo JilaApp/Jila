@@ -185,7 +185,10 @@ export default function Videos() {
           style={{ marginTop: Platform.OS === "ios" ? 20 : 0 }}
           javaScriptEnabled={true}
           domStorageEnabled={true}
-          source={{ uri: `https://www.youtube.com/embed/${videoData.link}` }}
+          source={{ 
+            uri: `https://www.youtube-nocookie.com/embed/${videoData.link}`,
+          }}
+          referrerpolicy="strict-origin-when-cross-origin"
         />
       </SafeAreaView>
       <View className="flex-row justify-between w-full px-10 mt-4">
